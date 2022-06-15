@@ -6,25 +6,47 @@
 
 /* You can override the default Infima variables here. */
 :root {
-  --ifm-color-primary: #2e8555;
-  --ifm-color-primary-dark: #29784c;
-  --ifm-color-primary-darker: #277148;
-  --ifm-color-primary-darkest: #205d3b;
-  --ifm-color-primary-light: #33925d;
-  --ifm-color-primary-lighter: #359962;
-  --ifm-color-primary-lightest: #3cad6e;
   --ifm-code-font-size: 95%;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
 }
 
-/* For readability concerns, you should choose a lighter palette in dark mode. */
-[data-theme='dark'] {
-  --ifm-color-primary: #25c2a0;
-  --ifm-color-primary-dark: #21af90;
-  --ifm-color-primary-darker: #1fa588;
-  --ifm-color-primary-darkest: #1a8870;
-  --ifm-color-primary-light: #29d5b0;
-  --ifm-color-primary-lighter: #32d8b4;
-  --ifm-color-primary-lightest: #4fddbf;
-  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.3);
+:root[data-theme="light"] {
+  --ifm-codeblock: #f6f8fa;
+  --ifm-hr-border-color: #00000011;
+
+  --ifm-menu-color: #0009;
+  --ifm-toc-link-color: #0009;
+
+  --ifm-color-primary: #5865f2;
+  --ifm-color-primary-dark: #3949f0;
+  --ifm-color-primary-darker: #2a3bee;
+  --ifm-color-primary-darkest: #1121d6;
+  --ifm-color-primary-light: #7781f4;
+  --ifm-color-primary-lighter: #868ff6;
+  --ifm-color-primary-lightest: #b4baf9;
+
+  --ifm-table-border-color: #dadde1;
+  --ifm-table-head-background: #ececec;
+  --ifm-table-stripe-background: #f5f6f7;
+}
+
+:root[data-theme="dark"] {
+  --ifm-codeblock: #161b22;
+  --ifm-hr-border-color: #ffffff11;
+  --ifm-background-color: #0d1117;
+  --ifm-background-surface-color: #161b22;
+
+  --ifm-menu-color: #fff9;
+  --ifm-toc-link-color: #fff9;
+
+  --ifm-color-primary: #5865f2;
+  --ifm-color-primary-dark: #3949f0;
+  --ifm-color-primary-darker: #2a3bee;
+  --ifm-color-primary-darkest: #1121d6;
+  --ifm-color-primary-light: #7781f4;
+  --ifm-color-primary-lighter: #868ff6;
+  --ifm-color-primary-lightest: #b4baf9;
+
+  --ifm-table-border-color: #30363d;
+  --ifm-table-head-background: #161b22;
+  --ifm-table-stripe-background: #161b22;
 }
