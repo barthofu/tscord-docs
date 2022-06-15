@@ -1,13 +1,14 @@
 // @ts-check
 // Note: type annotations allow type checking and IDEs autocompletion
 
-const lightCodeTheme = require('prism-react-renderer/themes/github');
-const darkCodeTheme = require('prism-react-renderer/themes/dracula');
+const lightCodeTheme = require('prism-react-renderer/themes/github')
+const darkCodeTheme = require('prism-react-renderer/themes/dracula')
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
-  title: 'My Site',
-  tagline: 'Dinosaurs are cool',
+
+  title: 'TSCord Template',
+  tagline: 'A fully-featured discord bot template written in Typescript.',
   url: 'https://your-docusaurus-test-site.com',
   baseUrl: '/',
   onBrokenLinks: 'throw',
@@ -27,6 +28,10 @@ const config = {
     locales: ['en'],
   },
 
+  plugins: [
+    'docusaurus-plugin-sass'
+  ],
+
   presets: [
     [
       'classic',
@@ -37,7 +42,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/facebook/docusaurus/tree/main/packages/create-docusaurus/templates/shared/',
+            'https://github.com/barthofu/tscord-template-docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
@@ -57,76 +62,32 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'My Site',
+        title: 'TSCord Template',
         logo: {
-          alt: 'My Site Logo',
-          src: 'img/logo.svg',
+          src: 'img/tscord-template-icon.png',
+          alt: 'Logo TSCord',
         },
         items: [
           {
             type: 'doc',
-            docId: 'intro',
+            docId: 'introduction',
             position: 'left',
-            label: 'Tutorial',
+            label: 'Documentation',
           },
-          {to: '/blog', label: 'Blog', position: 'left'},
+          // {to: '/blog', label: 'Blog', position: 'left'},
           {
-            href: 'https://github.com/facebook/docusaurus',
+            href: 'https://github.com/barthofu/tscord-template',
             label: 'GitHub',
             position: 'right',
           },
         ],
       },
+
       footer: {
-        style: 'dark',
-        links: [
-          {
-            title: 'Docs',
-            items: [
-              {
-                label: 'Tutorial',
-                to: '/docs/intro',
-              },
-            ],
-          },
-          {
-            title: 'Community',
-            items: [
-              {
-                label: 'Stack Overflow',
-                href: 'https://stackoverflow.com/questions/tagged/docusaurus',
-              },
-              {
-                label: 'Discord',
-                href: 'https://discordapp.com/invite/docusaurus',
-              },
-              {
-                label: 'Twitter',
-                href: 'https://twitter.com/docusaurus',
-              },
-            ],
-          },
-          {
-            title: 'More',
-            items: [
-              {
-                label: 'Blog',
-                to: '/blog',
-              },
-              {
-                label: 'GitHub',
-                href: 'https://github.com/facebook/docusaurus',
-              },
-            ],
-          },
-        ],
-        copyright: `Copyright © ${new Date().getFullYear()} My Project, Inc. Built with Docusaurus.`,
+        copyright: "Made by CodeLab team with ❤️",
       },
-      prism: {
-        theme: lightCodeTheme,
-        darkTheme: darkCodeTheme,
-      },
+      
     }),
 };
 
-module.exports = config;
+module.exports = config
