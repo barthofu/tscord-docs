@@ -23,15 +23,16 @@ import {
   faHourglassStart, 
   faCube, 
   faStar,
-  faCode
-
+  faCode,
+  faBook
 } from '@fortawesome/free-solid-svg-icons'
 
 const iconsAssociations = {
   'Discord': faDiscord,
   'Get Started': faHourglassStart,
   'Features': faStar,
-  'Devops': faCode
+  'Devops': faCode,
+  'Guides': faBook
 }
 
 // If we navigate to a category and it becomes active, it should automatically
