@@ -8,7 +8,10 @@ Before starting to code a bot using this template, you should understand how it 
 
 Here is a sample of the architecture of TSCord:
 
-![TSCord architecture diagram](./img/tscord_architecture.png)
+<br/>
+
+![TSCord architecture diagram](./img/tscord_architecture_LIGHT.png#gh-light-mode-only)
+![TSCord architecture diagram](./img/tscord_architecture_DARK.png#gh-dark-mode-only)
 
 ## Architecture
 
@@ -93,15 +96,13 @@ tscord-template
 ```
 
 
-
-
 ## Typescript
 
 > TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 
 ### Discord.ts
 
-:::info
+:::tip
 Under the hood, *TSCord* uses **discord.ts** that is himself a superset of **discord.js**.
 
 We **HIGHLY** recommand to check their documentation here: **https://discord-ts.js.org/**
