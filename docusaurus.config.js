@@ -9,16 +9,17 @@ const config = {
 
   title: 'TSCord Template',
   tagline: 'A fully-featured discord bot template written in Typescript.',
-  url: 'https://your-docusaurus-test-site.com',
-  baseUrl: '/',
+  url: 'https://barthofu.github.io',
+  baseUrl: '/tscord-template-docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
 
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
-  organizationName: 'facebook', // Usually your GitHub org/user name.
-  projectName: 'docusaurus', // Usually your repo name.
+  organizationName: 'barthofu', // Usually your GitHub org/user name.
+  projectName: 'tscord-template-docs', // Usually your repo name.
+  trailingSlash: false,
 
   // Even if you don't use internalization, you can use this field to set useful
   // metadata like html lang. For example, if your site is Chinese, you may want

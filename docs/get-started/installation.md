@@ -11,8 +11,16 @@ sidebar_position: 1
 - Node.js `>= 16.14`
 - npm `>= 8`
 
-## Install the template
+## Download the template
 
 As for now, TSCord is a **template** kind of github repository. You can either:
-- Click on the green button `Use this template` on the github repository
-- Clone the repo and delete the `.git/` folder
+
+1. Click on the green button `Use this template` on the github repository
+2. Clone the repo using command `git clone https://github.com/<you_username>/<your_repo>.git`
+
+## Install the dependencies
+
+Now, navigate to the cloned repo on your local machine and run the following command:
+```bash
+npm install
+```

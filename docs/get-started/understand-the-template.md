@@ -1,5 +1,5 @@
 ---
-sidebar_position: 3
+sidebar_position: 4
 ---
 
 # Understand the template
@@ -19,7 +19,7 @@ TSCord is following a clear separation of concerns and is built on multiple laye
 
 ### Presentation layer
 
-The first brick in this layered architecture, and the place where all of the flow starts are the **[Events](/docs/discord/events.md)** listeners triggered by interactions on Discord. Theses interactions are then redirected to the correct **[Handler](/docs/discord/interactions.md)**, similar to a *controller* in a MVC pattern.
+The first brick in this layered architecture, and the place where all of the flow starts are the **[Events](/docs/discord/events.md)** listeners triggered by interactions on Discord. Theses interactions are then redirected to the correct **[Handler](/docs/discord/interactions.mdx)**, similar to a *controller* in a MVC pattern.
 
 We can also trigger our own **[Custom Events](/docs/features/custom-events)** at any time from anywhere in the codebase.
 

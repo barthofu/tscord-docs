@@ -1,0 +1,76 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs';
+import TabItem from '@theme/TabItem';
+
+# Interactions
+
+TSCord uses decorators from `discord.ts` to handle interactions.
+
+:::caution 
+Because the template is overriding the default behavior of some of these decorators, you should **always** import them from `@decorators` rather than `discordx`! 
+:::
+
+#### Here is a relevant list of them, linked to the corresponding discord.ts documentation:
+
+<Tabs>
+<TabItem value="commands" label="Commands">
+
+### [@Slash](https://discord-ts.js.org/docs/decorators/commands/slash)
+
+#### [@SlashChoice](https://discord-ts.js.org/docs/decorators/commands/slash-choice)
+#### [@SlashGroup](https://discord-ts.js.org/docs/decorators/commands/slash-group)
+#### [@SlashOption](https://discord-ts.js.org/docs/decorators/commands/slash-option)
+
+### [@SimpleCommand](https://discord-ts.js.org/docs/decorators/commands/simple-command)
+
+#### [@SimpleCommandOption](https://discord-ts.js.org/docs/decorators/commands/simple-command-option)
+
+</TabItem>
+
+<TabItem value="gui" label="GUI Interactions">
+
+### [@ButtonComponent](https://discord-ts.js.org/docs/decorators/gui/button-component)
+### [@ContextMenu](https://discord-ts.js.org/docs/decorators/gui/context-menu)
+### [@ModalComponent](https://discord-ts.js.org/docs/decorators/gui/modal-component)
+### [@SelectMenuComponent](https://discord-ts.js.org/docs/decorators/gui/select-menu-component)
+
+</TabItem>
+</Tabs>
+
+## Built-in commands
+
+There are several built-in slash commands:
+
+<Tabs>
+<TabItem value="general" label="General">
+
+| Command name | Description                                                                   |
+|--------------|-------------------------------------------------------------------------------|
+| `help`         | Get all the commands and their descriptions, grouped by categories            |
+| `info`         | Show general informations about the bot                                       |
+| `invite`       | Give the link to invite the bot on any server                                 |
+| `ping`         | Pong!                                                                         |
+| `stats`        | Display stats like total amount of users using the bot, number of guilds, etc |
+
+</TabItem>
+
+<TabItem value="admin" label="Admin">
+
+| Command name | Description                               |
+|--------------|-------------------------------------------|
+| `prefix`       | Change the prefix of the bot on the guild |
+
+</TabItem>
+
+<TabItem value="owner" label="Owner">
+
+| Command name | Description                                                                |
+|--------------|----------------------------------------------------------------------------|
+| `maintenance`  | Toggle on/off maintenance mode                                             |
+| `eval`         | Execute code directly from discord (for testing purposes) (VERY DANGEROUS) |
+
+</TabItem>
+</Tabs>
