@@ -1,0 +1,1 @@
+"use strict";(self.webpackChunktscord_template_docs=self.webpackChunktscord_template_docs||[]).push([[530],{3769:function(e){e.exports=JSON.parse('{"name":"docusaurus-plugin-content-docs","id":"default"}')}}]);
