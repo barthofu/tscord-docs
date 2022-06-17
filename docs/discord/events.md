@@ -28,4 +28,6 @@ class Example {
 }
 ```
 
+:::tip important
 ### For more information, head over to the [discord.ts documentation](https://discord-ts.js.org/docs/decorators/general/on)
+:::

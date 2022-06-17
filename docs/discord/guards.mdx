@@ -1,0 +1,74 @@
+---
+sidebar_position: 3
+---
+
+# Guards
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+A guard is a *function* that will be executed **before** an handler (event, slash, simple command, etc) is called. 
+
+If you're familiar with the back-end and APIs development, think of it as *middlewares*.
+
+The guard will call the next handler if and only if the function `next()` is called within it. Otherwise, it will stop the process.
+
+Simple example of a guard function that is meant to be used alongside the `@On('messageCreate')` and that will validate it only if a certain regex is matched:
+
+```ts title="src/guards/match.ts"
+import type { ArgsOf, GuardFunction } from "discordx"
+  
+/**
+ * Pass only when the message match with a passed regular expression
+ * @param regex The regex to test
+ */
+export const Match = (regex: RegExp) => {
+
+    const guard: GuardFunction<
+        | ArgsOf<"messageCreate">
+    > = async ([message], client, next) => {
+        
+        if (message.content.match(regex)) next()
+    }
+
+    return guard
+}
+```
+
+And use it like this:
+```ts title=src/commands/General/foo.ts
+import { Client } from "discordx"
+
+import { Discord, On } from "@decorators"
+import { Guard, Match } from "@guards"
+
+@Discord()
+@Category('General')
+export default class Tests {
+
+	@On('messageCreate')
+	@Guard(
+		Match(/foo/gm)
+	)
+	async matchFoo(): Promise<void> {
+		
+		console.log('"foo" found!')
+	}
+}
+```
+
+<br/>
+
+:::tip important
+### For more information, head over to the official **[discord.ts documentation](https://discord-ts.js.org/docs/decorators/general/guard)**
+:::
+
+## Built-in guards
+
+<Tabs>
+	<Tab label="Disabled" value="disabled">
+	
+		Prevent interaction from running when it is disabled.
+	
+	</Tab>
+</Tabs>
