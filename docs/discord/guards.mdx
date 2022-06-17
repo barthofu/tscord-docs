@@ -66,9 +66,231 @@ export default class Tests {
 ## Built-in guards
 
 <Tabs>
-	<Tab label="Disabled" value="disabled">
+<Tab label="Disabled" value="disabled">
+
+> Prevent interaction from running when it is disabled, except for devs.
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class PingCommand {
+
+	@Slash("ping", { description:
+		'Pong!'
+	})
+	@Guard(
+		Disabled()
+	)
+	async ping(
+		interaction: CommandInteraction
+	): Promise<void> {
+		
+		interaction.reply('Pong!')
+	}
+}
+```
 	
-		Prevent interaction from running when it is disabled.
+</Tab>
+
+<Tab label="OnlyGuild" value="guild-only">
+
+> Prevent the command from running on DM
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class PingCommand {
+
+	@Slash("ping", { description:
+		'Pong!'
+	})
+	@Guard(
+		GuildOnly()
+	)
+	async ping(
+		interaction: CommandInteraction
+	): Promise<void> {
+		
+		interaction.reply('Pong, but only from a channel on a guild!')
+	}
+}
+```
 	
-	</Tab>
+</Tab>
+
+<Tab label="Maintenance" value="maintenance">
+
+> Prevent interactions and simple message commands from running when bot is in maintenance
+
+<br />
+
+:::info
+It is a **[global guard](https://discord-ts.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
+:::
+	
+</Tab>
+
+<Tab label="Match" value="match">
+
+> Pass only when the message content match with a passed regular expression
+
+#### Arguments
+
+| Name | Type | Description | Required |
+|:----:|:----:|:-----------:|:--------:|
+| regex | `RegExp` | The regex to test | ✔ |
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class PingCommand {
+
+	@On('messageCreate')
+	@Guard(
+		Match(/ping/gm)
+	)
+	async ping(
+		interaction: CommandInteraction
+	): Promise<void> {
+		
+		interaction.reply('Pong!')
+	}
+}
+```
+	
+</Tab>
+
+<Tab label="NotBot" value="not-bot">
+
+> Prevent other bots to interact with this bot.
+
+<br />
+
+:::info
+It is a **[global guard](https://discord-ts.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
+:::
+	
+</Tab>
+
+<Tab label="NSFW" value="nsfw">
+
+> Prevent the command from running in non-NSFW channels
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class PingCommand {
+
+	@Slash("ping", { description:
+		'Pong!'
+	})
+	@Guard(
+		NSFW()
+	)
+	async ping(
+		interaction: CommandInteraction
+	): Promise<void> {
+		
+		interaction.reply('Pong, but only from a NSFW channel!')
+	}
+}
+```
+	
+</Tab>
+
+<Tab label="RateLimit" value="rate-limit">
+
+> This guard will rate limit a user for a specified amount of time. 
+
+When set, a user can only call a command x amount of times after that, a cooldown is applied disallowing any more calls to the command until the cooldown is over.
+
+This cooldown starts from the moment the user sends the last message.
+
+If your cooldown is 10 seconds, and you allow 3 calls of your command, the user will have 10 seconds to call it 3 times, with the timer resetting after each call.
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class RateLimitExample {
+
+	/**
+	* 1 command every 30 seconds with default message
+	*/
+	@Slash("rate_limit_1")
+	@Guard(
+		RateLimit(TIME_UNIT.seconds, 30)
+	)
+	rateLimit1(interaction: CommandInteraction): void {
+		
+		interaction.reply("It worked!")
+	}
+
+	/**
+	* Allow 3 command before rate limit of 30 seconds (from last message)
+	*/
+	@Slash("rate_limit_3")
+	@Guard(
+		RateLimit(
+			TIME_UNIT.seconds, 
+			30, 
+			{ message: "Please wait `30` seconds!", rateValue: 3 }
+		)
+	)
+	rateLimit3(interaction: CommandInteraction): void {
+
+		interaction.reply("It worked!")
+	}
+
+	/**
+	* Rate limit simple command
+	*/
+	@SimpleCommand("rate_limit_simple")
+	@Guard(
+		RateLimit(TIME_UNIT.seconds, 10)
+	)
+	private async rateLimitSimpleCommand(
+		{ message }: SimpleCommandMessage
+	): Promise<void> {
+
+		message.reply("It worked!");
+	}
+}
+```
+</Tab>
+
+<Tab label="UserPermissions" value="user-permissions">
+
+> When you are using global commands, but still wish to restrict commands to permissions from roles, then you can use this guard to easily supply an array of Permissions that a user must have in order to execute the command.
+
+The guard can take an array of permissions or an async resolver to the permission array.
+
+__Usage example:__
+
+```ts
+@Discord()
+export default class PingCommand  {
+
+	@Slash("ping", { description:
+		'Pong!'
+	})
+	@Guard(
+		UserPermissions(["ADMINISTRATOR"])
+	)
+	async ping(
+		interaction: CommandInteraction
+	): Promise<void> {
+		
+		interaction.reply('Pong, but only admins can invoke it!')
+	}
+}
+```
+
+#### More info [here](https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#permissionguard).
+
+</Tab>
 </Tabs>
