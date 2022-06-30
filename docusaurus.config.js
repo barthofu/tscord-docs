@@ -30,7 +30,7 @@ const config = {
   },
 
   plugins: [
-    'docusaurus-plugin-sass'
+    'docusaurus-plugin-sass',
   ],
 
   presets: [

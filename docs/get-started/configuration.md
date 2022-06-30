@@ -65,21 +65,17 @@ export const generalConfig = {
 
 ### Database
 
-For more informations about the Mikro-ORM config (which holds, for instance, the database connection informations), head [over here](docs/features/database/orm)
+For more informations about the Mikro-ORM config (which holds, for instance, the database connection informations), head **[over here](docs/features/database/orm)**.
 
 ```ts title=src/config/database.ts
 export const databaseConfig = {
     
-    mikroORMConfig, // -> docs/features/database/orm
-
-    path: "./database/", // path to the folder containing the sqlite database (if there is any) and the migrations folder
+    path: "./database/", // path to the folder containing the migrations and SQLite database (if used)
     
-    // config for setting up an automated backup of the database
+    // config for setting up an automated backup of the database (ONLY FOR SQLITE)
     backup: {
         enabled: false,
-        interval: "daily",
-        time: "00:00",
-        path: ""
+        path: "" // path to the backups folder (should be in the database/ folder)
     }
 }
 ```

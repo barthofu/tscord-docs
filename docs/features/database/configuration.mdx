@@ -1,0 +1,102 @@
+---
+sidebar_position: 0
+---
+
+# Configuration
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+TSCord supports different databases:
+- SQLite (by default)
+- MySQL
+- MariaDB
+- PostgreSQL
+
+:::tip
+By default, the template is configured to use **SQLite**. If your bot doesn't aim to be used on thousands of guilds with 
+hundred of thousands of users, you can keep it.
+
+Plus, SQLite is the only database supported by the **[automatic backup system](/docs/features/database/backups)**.
+:::
+
+You can configure all of this in the `src/config/database.ts` file.
+
+Indeed, this file exports a `mikroOrmConfig` constant, which contains a production configuration and an optional development configuration. At runtime, the good configuration is chosen thanks to the NODE_ENV environment variable.
+
+You can find here the configuration for the different types of databases:
+
+<Tabs>
+<Tab label="SQLite" value="sqlite">
+
+```ts title=src/config/database.ts
+{
+    type: 'sqlite',
+    dbName: `${databaseConfig.path}db.sqlite`, // path to the db .sqlite file
+}
+```
+</Tab>
+
+<Tab label="PostgreSQL" value="postgresql">
+
+```ts title=src/config/database.ts
+{
+    type: 'postgresql',
+    dbName: process.env['DATABASE_NAME'],
+    host: process.env['DATABASE_HOST'],
+    port: 5432,
+    user: process.env['DATABASE_USER'],
+    password: process.env['DATABASE_PASSWORD'],
+}
+```
+</Tab>
+
+<Tab label="MySQL" value="mysql">
+
+```ts title=src/config/database.ts
+{
+    type: 'mysql',
+    dbName: process.env['DATABASE_NAME'],
+    host: process.env['DATABASE_HOST'],
+    port: 3306,
+    user: process.env['DATABASE_USER'],
+    password: process.env['DATABASE_PASSWORD'],
+}
+```
+</Tab>
+
+<Tab label="MariaDB" value="mariadb">
+
+```ts title=src/config/database.ts
+{
+    type: 'mariadb',
+    dbName: process.env['DATABASE_NAME'],
+    host: process.env['DATABASE_HOST'],
+    port: 3306,
+    user: process.env['DATABASE_USER'],
+    password: process.env['DATABASE_PASSWORD'],
+}
+```
+
+</Tab>
+</Tabs>
+
+## Env 
+
+You surely noticed that the database connection informations are stored in the environment variables.
+
+You can edit it in the `.env` file.
+
+Example:
+
+```python title=.env
+#...
+
+DATABASE_HOST="database"
+DATABASE_PORT=3306
+DATABASE_NAME="tscord_bot"
+DATABASE_USER="tscord"
+DATABASE_PASSWORD="tscord123"
+
+#...
+```
