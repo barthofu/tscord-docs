@@ -21,12 +21,12 @@ Once you have filled up the required values, rename the file from `.env.example`
 
 ## Configs
 
-Nearly all the configuration of the bot lives in the `configs/` folder. 
+Nearly all the configuration of the bot lives in the `src/config/` folder. 
 It is then splitted in separated files by concern.
 
 ### General
 
-```ts title=configs/general.ts
+```ts title=src/config/general.ts
 export const generalConfig = {
 
     // do not touch that
@@ -67,7 +67,7 @@ export const generalConfig = {
 
 For more informations about the Mikro-ORM config (which holds, for instance, the database connection informations), head [over here](docs/features/database/orm)
 
-```ts title=configs/database.ts
+```ts title=src/config/database.ts
 export const databaseConfig = {
     
     mikroORMConfig, // -> docs/features/database/orm
@@ -86,7 +86,7 @@ export const databaseConfig = {
 
 ### Logs
 
-```ts title=configs/logs.ts
+```ts title=src/config/logs.ts
 export const logsConfig = {
 
     debug: true, // set the discordx client debug logs
@@ -130,7 +130,7 @@ export const logsConfig = {
 
 ### Stats
 
-```ts title=configs/stats.ts
+```ts title=src/config/stats.ts
 export const statsConfig = {
 
     interaction: {
