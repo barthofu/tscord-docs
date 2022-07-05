@@ -4,3 +4,52 @@ sidebar_position: 6
 
 # Backups
 
+:::warning
+#### Backups are only supported by __SQLite__ databases!
+
+If you're using other databases, script your own backup system.
+:::
+
+TSCord use **[saveqlite](https://github.com/barthofu/saveqlite)** to make incrementals backups of the SQLite database file.
+
+Backing up a SQLite database file on a regular basis can quickly become really heavy. Indeed, the total weight of the backup will be `(database_size * num_backups)`.
+
+With an incremental backup system, only the difference since the last snapshot is saved!
+
+So we end up with a lightweight save, including multiple snapshots to rollback to any state of the database.
+
+## Scheduled backups
+
+A backup is [scheduled](/docs/features/scheduler) per day, happening at **23:59:59** (or *11:59:59 pm*).
+You can modify this time or the frequency in the `src/services/Database.ts` file at the `backup()` method.
+
+## Manual backups
+
+You can either create a backup programmaticaly by calling this `backup()` method and by referencing a custom file name for the backup.
+
+E.g:
+```ts
+// first, we import the Database service
+const db = container.resolve(Database)
+
+// then we chose a name for the backup snapshot
+const snapshotName = `snapshot-${formatDate(new Date(), 'onlyDateFileName')}-manual-${Date.now()}`
+
+// finaly, we generate the snapshot
+const success = await db.backup(snapshotName)
+```
+
+## API backups
+
+Finaly, you can create a backup using the [API](/docs/features/api) by simply make a *POST* request on this endpoint:
+```
+http://localhost:3000/database/backup
+```
+
+The server will return a response containing the name of the backup.
+
+## Restore a backup
+
+To restore a precise backup, you will have to either:
+- Use the `restore()` method of the *Database* service.
+- Make a POST request on the `http://localhost:3000/database/restore` endpoint and precising the `snapshotName` in the body. 
