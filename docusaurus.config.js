@@ -10,7 +10,7 @@ const config = {
   title: 'TSCord Template',
   tagline: 'A fully-featured discord bot template written in Typescript.',
   url: 'https://barthofu.github.io',
-  baseUrl: '/tscord-template-docs/',
+  baseUrl: '/tscord-docs/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
@@ -18,7 +18,7 @@ const config = {
   // GitHub pages deployment config.
   // If you aren't using GitHub pages, you don't need these.
   organizationName: 'barthofu', // Usually your GitHub org/user name.
-  projectName: 'tscord-template-docs', // Usually your repo name.
+  projectName: 'tscord-docs', // Usually your repo name.
   trailingSlash: false,
 
   // Even if you don't use internalization, you can use this field to set useful
@@ -43,7 +43,7 @@ const config = {
           // Please change this to your repo.
           // Remove this to remove the "edit this page" links.
           editUrl:
-            'https://github.com/barthofu/tscord-template-docs/tree/main/',
+            'https://github.com/barthofu/tscord-docs/tree/main/',
         },
         blog: {
           showReadingTime: true,
