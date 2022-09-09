@@ -1,0 +1,39 @@
+---
+sidebar_position: 4
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# API
+
+TSCord is not only a Discord Bot, it has also an API in its core!
+This API lets you interact with the bot instance and the DB from other services using REST requests.
+
+The API server is disabled by default, but you can enable it in the API config:
+```ts title=src/config/general.ts
+export const generalConfig: GeneralConfigType = {
+
+    //...
+    enabled: true
+    //...
+}
+```
+
+:::info
+It uses the `@discordx/koa` package under the hood, checks the official documentation **[here](https://discordx.js.org/docs/koa)**
+:::
+
+All the API code lives in `src/api/`.
+
+## Built-in endpoints
+
+<Tabs>
+<Tab label="Bot" value="bot">
+
+
+
+</Tab>
+
+
+</Tabs>

@@ -100,19 +100,19 @@ tscord-template
 
 > TypeScript is a strongly typed programming language that builds on JavaScript, giving you better tooling at any scale.
 
-### Discord.ts
+### discordx
 
 :::tip
-Under the hood, *TSCord* uses **discord.ts** that is himself a superset of **discord.js**.
+Under the hood, *TSCord* uses **discordx** that is himself a superset of **discord.js**.
 
-We **HIGHLY** recommand to check their documentation here: **https://discord-ts.js.org/**
+We **HIGHLY** recommand to check their documentation here: **https://discordx.js.org/**
 ::: 
 
 ### Decorators
 
 A Decorator is a special kind of declaration that can be attached to a class *declaration*, *method*, *accessor*, *property*, or *parameter*. Decorators use the form @expression , where expression must evaluate to a function that will be called at runtime with information about the decorated declaration.
 
-This template and **discord.ts** are using decorators *a lot*.
+This template and **discordx** are using decorators *a lot*.
 
 Even if it is not difficult at all to understand and use them, creating ones is quite another thing. Don't hesitate to check the [official decorators doc](https://www.typescriptlang.org/docs/handbook/decorators.html) and take the already existing ones as examples (`src/utils/decorators`).
 

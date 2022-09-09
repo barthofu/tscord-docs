@@ -23,7 +23,9 @@ export default class PingCommand {
         private db: Database
     ) {}
 
-    @Slash('ping')
+    @Slash({ 
+        name: 'ping' 
+    })
     async pingHandler() {
 
         const dataRepo = this.db.getRepo(Data)

@@ -60,7 +60,7 @@ export default class Tests {
 <br/>
 
 :::tip important
-### For more information, head over to the official **[discord.ts documentation](https://discord-ts.js.org/docs/decorators/general/guard)**
+### For more information, head over to the official **[discordx documentation](https://discordx.js.org/docs/decorators/general/guard)**
 :::
 
 ## Built-in guards
@@ -76,15 +76,16 @@ __Usage example:__
 @Discord()
 export default class PingCommand {
 
-	@Slash("ping", { description:
-		'Pong!'
+	@Slash({ 
+		name: 'ping',
+		description: 'Pong!'
 	})
 	@Guard(
 		Disabled()
 	)
 	async ping(
 		interaction: CommandInteraction
-	): Promise<void> {
+	) {
 		
 		interaction.reply('Pong!')
 	}
@@ -127,7 +128,7 @@ export default class PingCommand {
 <br />
 
 :::info
-It is a **[global guard](https://discord-ts.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
+It is a **[global guard](https://discordx.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
 :::
 	
 </Tab>
@@ -170,7 +171,7 @@ export default class PingCommand {
 <br />
 
 :::info
-It is a **[global guard](https://discord-ts.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
+It is a **[global guard](https://discordx.js.org/docs/decorators/general/guard#global-guards)** applied on the bot client directly, you don't have to touch it nor use it!
 :::
 	
 </Tab>
@@ -290,7 +291,7 @@ export default class PingCommand  {
 }
 ```
 
-#### More info [here](https://github.com/oceanroleplay/discord.ts/tree/main/packages/utilities#permissionguard).
+#### More info [here](https://github.com/oceanroleplay/discordx/tree/main/packages/utilities#permissionguard).
 
 </Tab>
 </Tabs>

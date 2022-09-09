@@ -64,8 +64,12 @@ export default class PingCommand {
         private db: Database
     )
 
-    @Slash('ping')
-    async pingHandler(interaction: CommandInteraction) {
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
 
         const userRepo = this.db.getRepo(User)
         const user = await userRepo.findOne({ id: interaction.user.id }), // -> User
@@ -89,8 +93,12 @@ export default class PingCommand {
         private db: Database
     )
 
-    @Slash('ping')
-    async pingHandler(interaction: CommandInteraction) {
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
 
         const userRepo = this.db.getRepo(User)
 
@@ -116,8 +124,12 @@ export default class PingCommand {
         private db: Database
     )
 
-    @Slash('ping')
-    async pingHandler(interaction: CommandInteraction) {
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
 
         const userRepo = this.db.getRepo(User)
 
@@ -142,8 +154,12 @@ export default class PingCommand {
         private db: Database
     )
 
-    @Slash('ping')
-    async pingHandler(interaction: CommandInteraction) {
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
 
         const userRepo = this.db.getRepo(User)
 
