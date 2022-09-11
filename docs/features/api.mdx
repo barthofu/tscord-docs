@@ -8,7 +8,7 @@ import TabItem from '@theme/TabItem'
 # API
 
 TSCord is not only a Discord Bot, it has also an API in its core!
-This API lets you interact with the bot instance and the DB from other services using REST requests.
+This API lets you interact with the bot instance and the DB from external services using REST requests.
 
 The API server is disabled by default, but you can enable it in the API config:
 ```ts title=src/config/general.ts
@@ -20,20 +20,29 @@ export const generalConfig: GeneralConfigType = {
 }
 ```
 
+You can also customize the port of the API server using either the `.env` file or setting it directly in the config file.
+
 :::info
-It uses the `@discordx/koa` package under the hood, checks the official documentation **[here](https://discordx.js.org/docs/koa)**
+It uses the `routing-controllers` package under the hood, checks the official documentation **[here](https://github.com/typestack/routing-controllers#table-of-contents)**
 :::
 
+## Swagger
+
+The API includes an OpenAPI Swagger webpage, accessible at this endpoint:
+```
+/docs
+```
+
+It is an interactive documentation of all the endpoints and their parameters.
+
+## Architecture
+
 All the API code lives in `src/api/`.
+It is splitted as follow:
 
-## Built-in endpoints
-
-<Tabs>
-<Tab label="Bot" value="bot">
-
-
-
-</Tab>
-
-
-</Tabs>
+```
+src/api/
+├── controllers # all the controllers (= endpoints), grouped by module file
+├── middlewares # the middlewares are functions that are executed before the controller
+└── server.ts # the server itself
+```
