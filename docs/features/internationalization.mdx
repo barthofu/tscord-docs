@@ -135,6 +135,7 @@ class Example {
 		interaction: CommandInteraction,
 		client: Client, // -> if you want to use these auto injected data, you MUST put the client because discordx injects it anyway!
 						// if you don't, then the object passed as the InteractionData one will be in fact the client ☠️
+		// highlight-next-line
 		{ sanitizedLocale, localize }: InteractionData
 	) {
 		

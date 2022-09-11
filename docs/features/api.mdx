@@ -14,9 +14,9 @@ The API server is disabled by default, but you can enable it in the API config:
 ```ts title=src/config/general.ts
 export const generalConfig: GeneralConfigType = {
 
-    //...
-    enabled: true
-    //...
+    //highlight-next-line
+    enabled: true,
+    port: process.env['API_PORT'] ? parseInt(process.env['API_PORT']) : 4000,
 }
 ```
 

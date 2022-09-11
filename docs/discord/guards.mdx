@@ -47,9 +47,11 @@ import { Guard, Match } from "@guards"
 export default class Tests {
 
 	@On('messageCreate')
+	// highlight-start
 	@Guard(
 		Match(/foo/gm)
 	)
+	// highlight-end
 	async matchFoo(): Promise<void> {
 		
 		console.log('"foo" found!')
