@@ -56,3 +56,31 @@ When an image is uploaded, the following data is saved in the db:
 The `hash` and `deleteHash` properties are also stored in the database, but it is meant for an internal operation so don't worry about these.
 
 ## Use images
+
+To use images in your code, just retrieve it from the database:
+```ts
+import { injectable } from 'tsyringe'
+
+import { Database } from '@services'
+import { Image } from '@entities'
+import { Discord } from '@decorators'
+
+@Discord()
+@injectable()
+export default class PingCommand {
+
+    constructor(
+        private db: Database
+    )
+
+    @Slash({ name: 'ping' })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
+
+        //highlight-next-line
+        const image = await this.db.get(Image).find({ fileName: 'image.png' })
+        interaction.followUp(image.url)
+    }
+}
+```
