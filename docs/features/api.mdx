@@ -7,10 +7,24 @@ import TabItem from '@theme/TabItem'
 
 # API
 
-TSCord is not only a Discord Bot, it has also an API in its core!
+TSCord is not only a Discord Bot, it has also an API in its core!<br />
 This API lets you interact with the bot instance and the DB from external services using REST requests.
 
-The API server is disabled by default, but you can enable it in the API config:
+:::info
+It uses the `routing-controllers` package under the hood, check the **[official documentation here](https://github.com/typestack/routing-controllers#table-of-contents)** to learn how to customize it and add new endpoints.
+:::
+
+## Initialization
+
+First, you need to put a unique **API_ADMIN_TOKEN** in the `.env` file (you can generate it [here](https://www.uuidgenerator.net/version1 )).
+You can also customize the port it is running on.
+
+```env title=.env
+API_PORT=4000
+API_ADMIN_TOKEN="PUT_A_RANDOM_TOKEN_HERE"
+```
+
+Then, you'll have to enable the API server in the config as it is disabled by default:
 ```ts title=src/config/general.ts
 export const generalConfig: GeneralConfigType = {
 
@@ -20,12 +34,6 @@ export const generalConfig: GeneralConfigType = {
 }
 ```
 
-You can also customize the port of the API server using either the `.env` file or setting it directly in the config file.
-
-:::info
-It uses the `routing-controllers` package under the hood, checks the official documentation **[here](https://github.com/typestack/routing-controllers#table-of-contents)**
-:::
-
 ## Swagger
 
 The API includes an OpenAPI Swagger webpage, accessible at this endpoint:
@@ -34,6 +42,15 @@ The API includes an OpenAPI Swagger webpage, accessible at this endpoint:
 ```
 
 It is an interactive documentation of all the endpoints and their parameters.
+
+## Authorization
+
+Most of the API is protected by an authorization system.
+It is designed following a classic [Bearer-like header authorization](https://swagger.io/docs/specification/authentication/bearer-authentication/) pattern.
+
+It accepts two type of tokens:
+- **Discord OAuth2 token**: the authorization system will fetch the actual discord user from the provided token, and then checks if its ID is included in the `devs` config property.
+- **Admin Token**: if the provided token correspond to the one in the `.env`, it will authorize the request.
 
 ## Architecture
 
