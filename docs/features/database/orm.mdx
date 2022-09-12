@@ -47,7 +47,7 @@ Some explanations:
 
 Now that you have your entities created, you surely want to query, insert or even update data in the database!
 
-It is doned by using *entity repositories*. To access one, you need to inject the `Database` service, and then call the `getRepo()` method.
+It is doned by using *entity repositories*. To access one, you need to inject the `Database` service, and then call the `get()` method.
 This method takes one argument: the class type of the entity you want to interact with.
 It will then return the repository of this entity, used to persist and query data.
 
@@ -71,9 +71,10 @@ export default class PingCommand {
         interaction: CommandInteraction
     ) {
 
-        const userRepo = this.db.getRepo(User)
-        const user = await userRepo.findOne({ id: interaction.user.id }), // -> User
-              users = await userRepo.find() // -> [User, User, User, ...]
+        const userRepo = this.db.get(User)
+
+        const user = await userRepo.find({ id: interaction.user.id }) // -> User
+        const users = await userRepo.findAll() // -> [User, User, User, ...]
 
         interaction.reply(`${user.name}, pong!\nThere is a total of ${users.length} users in the database.`)
     }
@@ -100,7 +101,7 @@ export default class PingCommand {
         interaction: CommandInteraction
     ) {
 
-        const userRepo = this.db.getRepo(User)
+        const userRepo = this.db.get(User)
 
         const user = new User()
         user.name = 'John Doe'
@@ -131,7 +132,7 @@ export default class PingCommand {
         interaction: CommandInteraction
     ) {
 
-        const userRepo = this.db.getRepo(User)
+        const userRepo = this.db.get(User)
 
         const user = await userRepo.findOne({ id: interaction.user.id })
         user.name = 'John Doe'
@@ -161,7 +162,7 @@ export default class PingCommand {
         interaction: CommandInteraction
     ) {
 
-        const userRepo = this.db.getRepo(User)
+        const userRepo = this.db.get(User)
 
         const user = await userRepo.findOne({ id: interaction.user.id })
         await userRepo.removeAndFlush(user)

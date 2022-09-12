@@ -28,7 +28,7 @@ export default class PingCommand {
     })
     async pingHandler() {
 
-        const dataRepo = this.db.getRepo(Data)
+        const dataRepo = this.db.get(Data)
 
         const isInMaintenance = dataRepo.get('maintenance') // -> false
 
