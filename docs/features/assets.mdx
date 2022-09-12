@@ -4,3 +4,55 @@ sidebar_position: 9
 
 # Assets
 
+We all know that working with assets (and mainly images) is really painful with Discord bots.<br/>
+Indeed, embeds allow you to only use **hosted images**, which can be quite annoying to manage and to work with.
+
+But TSCord solves this issue!<br/>
+It has an auto image upload service that will *scan* every image file in the `assets/images` directory and upload them on [imgur](https://imgur.com/).<br/>
+The uploaded images url are then saved in the `image` table of the database, along with some usefull metadata.
+
+## Enable image upload
+
+Go to `src/config/general.ts` and set the `automaticUploadImageToImgur` property to `true`
+```ts title=src/config/general.ts
+export const generalConfig: GeneralConfigType = {
+    //...
+    //highlight-next-line
+    automaticUploadImagesToImgur: true,
+    //...
+}
+```
+
+Then, you'll have to get a Client ID in order to use the Imgur API.<br/>
+Steps to follow:
+
+1. Sign in or register on imgur - https://imgur.com/
+2. Navigate to the following page to register an OAuth application - https://api.imgur.com/oauth2/addclient
+3. Fill the form with your application details
+4. On the authorization callback URL section, register the following URL: https://imgur.com/
+5. Click on "Save" and that's it!
+
+Now just paste the `Client ID` in your `.env` file on the following property:
+```env title=.env
+IMGUR_CLIENT_ID="YOUR_IMGUR_CLIENT_ID"
+```
+
+Now that the upload service is enabled, the next time you start the bot it'll upload all images recursively in the `assets/images` directory.
+
+Plus, if an image is removed from the directory, it'll also be removed from both database and imgur, and if one has a broken link on imgur, it'll be automaticaly reuploaded!
+
+## Image entity
+
+When an image is uploaded, the following data is saved in the db:
+
+| Property     | Type     | Description                                                                                                                                                                                                                                   |
+|----------|----------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| **fileName** | string   | The file name of the image (including its format)                                                                                                                                                                                             |
+| **basePath** | string   | Relative path to the image, using the `assets/images` directory as root path                                                                                                                                                                  |
+| **url**      | string   | The imgur hosted URL to access the image                                                                                                                                                                                                      |
+| **size**     | number   | Total size of the image in Bytes                                                                                                                                                                                                              |
+| **tags**     | string[] | Editable list of tags to batch search images of the same type. By default, it will split the `basePath` of the image in different tags (ex: if the image is located in `assets/images/foo/bar/image.png`, it'll have the `foo` and `bar` tags |
+
+The `hash` and `deleteHash` properties are also stored in the database, but it is meant for an internal operation so don't worry about these.
+
+## Use images
