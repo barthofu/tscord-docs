@@ -2,12 +2,15 @@
 // Note: type annotations allow type checking and IDEs autocompletion
 
 const lightCodeTheme = require('prism-react-renderer/themes/github')
-const darkCodeTheme = require('prism-react-renderer/themes/dracula')
+const darkCodeTheme = require('prism-react-renderer/themes/palenight')
+
+// @ts-ignore
+darkCodeTheme.plain.backgroundColor = '#161b22'
 
 /** @type {import('@docusaurus/types').Config} */
 const config = {
 
-  title: 'TSCord Template',
+  title: 'TSCord',
   tagline: 'A fully-featured discord bot template written in Typescript.',
   url: 'https://barthofu.github.io',
   baseUrl: '/tscord-docs/',
@@ -63,7 +66,7 @@ const config = {
     /** @type {import('@docusaurus/preset-classic').ThemeConfig} */
     ({
       navbar: {
-        title: 'TSCord Template',
+        title: 'TSCord',
         logo: {
           src: 'img/tscord-template-icon.png',
           alt: 'Logo TSCord',
@@ -87,6 +90,28 @@ const config = {
       footer: {
         copyright: "Made by CodeLab team with ❤️",
       },
+
+      prism: {
+
+        darkTheme: darkCodeTheme,
+        theme: lightCodeTheme,
+
+        magicComments: [
+          {
+            className: 'theme-code-block-highlighted-line',
+            line: 'highlight-next-line',
+            block: {start: 'highlight-start', end: 'highlight-end'},
+          },
+          {
+            className: 'code-block-remove-line',
+            line: 'remove-next-line',
+          },
+          {
+            className: 'code-block-add-line',
+            line: 'add-next-line',
+          },
+        ]
+      }
       
     }),
 };

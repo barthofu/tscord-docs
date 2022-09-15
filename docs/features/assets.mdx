@@ -79,7 +79,14 @@ export default class PingCommand {
     ) {
 
         //highlight-next-line
-        const image = await this.db.get(Image).find({ fileName: 'image.png' })
+        const image = await this.db.get(Image).findOne({ fileName: 'image.png' }) // find by fileName
+
+        // or you can find by tags
+        //highlight-next-line
+        const imagesExplicit = await this.db.get(Image).getByTags(['foo', 'bar']) // will search for images that have 'foo' AND 'bar'
+        //highlight-next-line
+        const imagesNonExplicit = await this.db.get(Image).getByTags(['foo', 'bar'], false) // will search for images that have 'foo' OR 'bar'
+
         interaction.followUp(image.url)
     }
 }

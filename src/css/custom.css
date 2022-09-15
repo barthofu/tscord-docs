@@ -16,6 +16,9 @@
 }
 
 :root[data-theme="light"] {
+
+  --docusaurus-highlighted-code-line-bg: rgba(0, 0, 0, 0.1);
+
   --ifm-codeblock: #f6f8fa;
   --ifm-hr-border-color: #00000011;
 
@@ -36,11 +39,15 @@
 }
 
 :root[data-theme="dark"] {
+  
+  --prism-background-color: #161b22;
   --ifm-codeblock: #161b22;
   --ifm-hr-border-color: #ffffff11;
   --ifm-background-color: #0d1117;
   --ifm-background-surface-color: #161b22;
-
+  
+  --docusaurus-highlighted-code-line-bg: rgba(255, 255, 255, 0.122);
+  
   --ifm-menu-color: #fff9;
   --ifm-toc-link-color: #fff9;
 
@@ -55,4 +62,20 @@
   --ifm-table-border-color: #30363d;
   --ifm-table-head-background: #161b22;
   --ifm-table-stripe-background: #161b22;
+}
+
+.code-block-remove-line {
+  background-color: #ff000021;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #ff000073;
+}
+
+.code-block-add-line {
+  background-color: #00ff0d1a;
+  display: block;
+  margin: 0 calc(-1 * var(--ifm-pre-padding));
+  padding: 0 var(--ifm-pre-padding);
+  border-left: 3px solid #2bff006b;
 }

@@ -73,7 +73,7 @@ export default class PingCommand {
 
         const userRepo = this.db.get(User)
 
-        const user = await userRepo.find({ id: interaction.user.id }) // -> User
+        const user = await userRepo.findOne({ id: interaction.user.id }) // -> User
         const users = await userRepo.findAll() // -> [User, User, User, ...]
 
         interaction.reply(`${user.name}, pong!\nThere is a total of ${users.length} users in the database.`)

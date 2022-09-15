@@ -14,7 +14,7 @@ function HomepageHeader() {
 	  <header className={clsx('', styles.heroBanner)}>
 		<div className="container">
 		
-			<img className={styles.logo} src="img/tscord-template-icon.png" alt="Logo TSCord Template" />
+			<img className={styles.logo} src="img/tscord-template-icon.png" alt="Logo TSCord" />
 			<h1 className="hero__title">{siteConfig.title}</h1>
 			<p className="hero__subtitle">{siteConfig.tagline}</p>
 

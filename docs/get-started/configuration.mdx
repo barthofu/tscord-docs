@@ -9,13 +9,13 @@ sidebar_position: 2
 The first thing you have to do after installing the template is to setup the environments variables.
 TSCord supports `.env` files out-of-the-box.
 
-You'll find a `.env.example` file in the root directory with the following key/values pairs:
+You'll find a `.env.example` file in the root directory with the following key/values pairs under the discord category:
 
-| Key                 | Value                                                                                     | Required |
-|---------------------|-------------------------------------------------------------------------------------------|----------|
-| **BOT_TOKEN**       | Your discord bot token (can be found [here](https://discord.com/developers/applications)) | ✔        |
-| **TEST_GUILD_ID**   | The ID of the guild where you'll make tests with your bot                                 | ✔        |
-| **IMGUR_CLIENT_ID** | Imgur client ID (see [here](/docs/features/assets) for more informations)                 |          |
+| Key              | Value                                                                                     | Required |
+|------------------|-------------------------------------------------------------------------------------------|----------|
+| **BOT_TOKEN**    | Your discord bot token (can be found [here](https://discord.com/developers/applications)) | ✔        |
+| **TEST_GUILD_ID**| The ID of the guild where you'll make tests with your bot                                 | ✔        |
+| **BOT_OWNER_ID** | The discord ID of bot owner                                                               | ✔        |
 
 Once you have filled up the required values, rename the file from `.env.example` to `.env`.
 
@@ -30,19 +30,25 @@ It is then splitted in separated files by concern.
 export const generalConfig = {
 
     // do not touch that
-    __templateVersion: '2.0.0',
+    __templateVersion: 'x.x.x',
 
 	name: '', // the name of your bot
 	description: '', // the description of your bot
 	defaultLocale: 'en', // default language of the bot, must be a valid locale
 	simpleCommandsPrefix: '!', // default prefix for simple command messages (old way to do commands on discord)
-	owner: 'YOUR_ID_HERE',
+	owner: process.env['BOT_OWNER_ID'] || ''',
 	timezone: 'Europe/Paris', // default TimeZone to well format and localize dates (logs, stats, etc)
-	automaticUploadImagesToImgur: true, // enable or not the automatic assets upload
+	
+    // useful links
+    links: {
+		invite: 'https://www.change_invite_link_here.com',
+		supportServer: 'https://discord.com/your_invitation_link',
+		gitRemoteRepo: 'https://github.com/barthofu/tscord',
+	},
+    
+    automaticUploadImagesToImgur: false, // enable or not the automatic assets upload
 
-	devs: [
-		'260908777446965248'
-	], // discord IDs of the devs that are working on the bot 
+	devs: [], // discord IDs of the devs that are working on the bot (you don't have to put the owner's id here)
 
 	eval: {
 		name: 'bot', // name to trigger the eval command
@@ -61,14 +67,20 @@ export const generalConfig = {
 		}
 	]
 }
+
+// global colors
+export const colorsConfig = {
+
+	primary: '#2F3136'
+}
 ```
 
 ### Database
 
 For more informations about the Mikro-ORM config (which holds, for instance, the database connection informations), head **[over here](docs/features/database/orm)**.
 
-```ts title=src/config/database.ts
-export const databaseConfig = {
+```ts title=src/config/database.ts²
+export const databaseConfig: DatabaseConfigType = {
     
     path: "./database/", // path to the folder containing the migrations and SQLite database (if used)
     
@@ -83,9 +95,9 @@ export const databaseConfig = {
 ### Logs
 
 ```ts title=src/config/logs.ts
-export const logsConfig = {
+export const logsConfig: LogsConfigType = {
 
-    debug: true, // set the discordx client debug logs
+    debug: false, // set the discordx client debug logs
 		
     // for each type of log, you can precise :
     // - if the log should be consoled
@@ -120,6 +132,12 @@ export const logsConfig = {
         file: true,
         console: true,
         channel: null
+    },
+    
+    error: {
+        file: true,
+        console: true,
+        channel: null
     }
 }
 ```
@@ -127,7 +145,7 @@ export const logsConfig = {
 ### Stats
 
 ```ts title=src/config/stats.ts
-export const statsConfig = {
+export const statsConfig: StatsConfigType = {
 
     interaction: {
 
@@ -139,3 +157,35 @@ export const statsConfig = {
     }
 }
 ```
+
+### API
+
+```ts title=src/config/api.ts
+export const apiConfig: APIConfigType = {
+
+    enabled: false, // is the API server enabled or not
+    port: process.env['API_PORT'] ? parseInt(process.env['API_PORT']) : 4000, // the port on which the API server should be exposed
+}
+```
+
+### API
+
+```ts title=src/config/websocket.ts
+export const websocketConfig: WebsocketConfigType = {
+
+    enabled: false, // should the websocket client be enabled or not (if you're not using the Dashboard, just disable it)
+}
+```
+
+## IDE
+
+If your IDE displays you errors in certains files, it is because its TypeScript Server is not using the right version.
+
+### VSCode
+
+For VSCode, follow these steps:
+
+1. Go in a `.ts` file (any)
+2. Open the command palette (`ctrl`+`maj`+`p`)
+3. Search: ***Select Typescript*** and click on the first result
+4. Select `Use Workspace version`

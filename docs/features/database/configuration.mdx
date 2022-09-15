@@ -22,16 +22,21 @@ Plus, SQLite is the only database supported by the **[automatic backup system](/
 
 You can configure all of this in the `src/config/database.ts` file.
 
-Indeed, this file exports a `mikroOrmConfig` constant, which contains a production configuration and an optional development configuration. At runtime, the good configuration is chosen thanks to the NODE_ENV environment variable.
+Indeed, this file exports a `databaseType` and a `mikroOrmConfig` constant, which contains a production configuration and an optional development configuration. At runtime, the good configuration is chosen thanks to the NODE_ENV environment variable.
+The database type should be explicitely set in the `databaseType` constant as it will be used to determine which entity manager type Mikro-ORM should use internaly.
 
 You can find here the configuration for the different types of databases:
 
 <Tabs>
 <Tab label="SQLite" value="sqlite">
 
-```ts title=src/config/database.ts
+```ts title=databaseType
+export const databaseType = 'better-sqlite' as const // (or 'sqlite') 
+```
+
+```ts title=mikroOrmConfig
 {
-    type: 'sqlite',
+    type: databaseType,
     dbName: `${databaseConfig.path}db.sqlite`, // path to the db .sqlite file
 }
 ```
@@ -39,9 +44,13 @@ You can find here the configuration for the different types of databases:
 
 <Tab label="PostgreSQL" value="postgresql">
 
-```ts title=src/config/database.ts
+```ts title=databaseType
+export const databaseType = 'postgresql' as const
+```
+
+```ts title=mikroOrmConfig
 {
-    type: 'postgresql',
+    type: databaseType,
     dbName: process.env['DATABASE_NAME'],
     host: process.env['DATABASE_HOST'],
     port: 5432,
@@ -53,7 +62,11 @@ You can find here the configuration for the different types of databases:
 
 <Tab label="MySQL" value="mysql">
 
-```ts title=src/config/database.ts
+```ts title=databaseType
+export const databaseType = 'mysql' as const 
+```
+
+```ts title=mikroOrmConfig
 {
     type: 'mysql',
     dbName: process.env['DATABASE_NAME'],
@@ -67,7 +80,11 @@ You can find here the configuration for the different types of databases:
 
 <Tab label="MariaDB" value="mariadb">
 
-```ts title=src/config/database.ts
+```ts title=databaseType
+export const databaseType = 'mariadb' as const
+```
+
+```ts title=mikroOrmConfig
 {
     type: 'mariadb',
     dbName: process.env['DATABASE_NAME'],
