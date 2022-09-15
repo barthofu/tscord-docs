@@ -4,6 +4,7 @@ import Link from '@docusaurus/Link'
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import Layout from '@theme/Layout'
 
+// @ts-ignore
 import styles from './index.module.scss'
 
 function HomepageHeader() {

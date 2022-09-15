@@ -24,7 +24,8 @@ import {
   faCube, 
   faStar,
   faCode,
-  faBook
+  faBook,
+  faPuzzlePiece
 } from '@fortawesome/free-solid-svg-icons'
 
 const iconsAssociations = {
@@ -32,6 +33,7 @@ const iconsAssociations = {
   'Get Started': faHourglassStart,
   'Features': faStar,
   'Devops': faCode,
+  'Plugins': faPuzzlePiece,
   'Guides': faBook
 }
 
@@ -88,7 +90,10 @@ function CollapseButton({categoryLabel, onClick}) {
 }
 function Icon({ item }) {
 
+  console.log(iconsAssociations)
+  console.log(item.label)
   const icon = iconsAssociations[item.label]
+  console.log(icon)
   if (!icon) {
     return null
   }
