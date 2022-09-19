@@ -90,10 +90,7 @@ function CollapseButton({categoryLabel, onClick}) {
 }
 function Icon({ item }) {
 
-  console.log(iconsAssociations)
-  console.log(item.label)
   const icon = iconsAssociations[item.label]
-  console.log(icon)
   if (!icon) {
     return null
   }
