@@ -9,7 +9,7 @@ Indeed, embeds allow you to only use **hosted images**, which can be quite annoy
 
 But TSCord solves this issue!<br/>
 It has an auto image upload service that will *scan* every image file in the `assets/images` directory and upload them on [imgur](https://imgur.com/).<br/>
-The uploaded images url are then saved in the `image` table of the database, along with some usefull metadata.
+The uploaded images url are then saved in the `image` table of the database, along with some useful metadata.
 
 ## Enable image upload
 
@@ -39,7 +39,7 @@ IMGUR_CLIENT_ID="YOUR_IMGUR_CLIENT_ID"
 
 Now that the upload service is enabled, the next time you start the bot it'll upload all images recursively in the `assets/images` directory.
 
-Plus, if an image is removed from the directory, it'll also be removed from both database and imgur, and if one has a broken link on imgur, it'll be automaticaly reuploaded!
+Plus, if an image is removed from the directory, it'll also be removed from both database and imgur, and if one has a broken link on imgur, it'll be automatically reuploaded!
 
 ## Image entity
 
@@ -83,9 +83,9 @@ export default class PingCommand {
 
         // or you can find by tags
         //highlight-next-line
-        const imagesExplicit = await this.db.get(Image).getByTags(['foo', 'bar']) // will search for images that have 'foo' AND 'bar'
+        const imagesExplicit = await this.db.get(Image).findByTags(['foo', 'bar']) // will search for images that have 'foo' AND 'bar'
         //highlight-next-line
-        const imagesNonExplicit = await this.db.get(Image).getByTags(['foo', 'bar'], false) // will search for images that have 'foo' OR 'bar'
+        const imagesNonExplicit = await this.db.get(Image).findByTags(['foo', 'bar'], false) // will search for images that have 'foo' OR 'bar'
 
         interaction.followUp(image.url)
     }

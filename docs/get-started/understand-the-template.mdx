@@ -4,7 +4,7 @@ sidebar_position: 4
 
 # Understand the template
 
-Before starting to code a bot using this template, you should understand how it works in a more theorical way (yeah we know, not the most entertaining part :P)
+Before starting to code a bot using this template, you should understand how it works in a more theoretical way (yeah we know, not the most entertaining part :P)
 
 Here is a sample of the architecture of TSCord:
 
@@ -30,7 +30,7 @@ Indeed, the *handlers* should contain the least amount of logic possible.
 
 ### Data layer
 
-Last but not least, the data layer have the responsability of manipulating and persisting data to a database.
+Last but not least, the data layer have the responsibility of manipulating and persisting data to a database.
 
 We are using **[Mikro-ORM](/docs/features/database/orm)** within TSCord so you don't have to worry a lot about this layer, except to write some custom methods on repositories.
 
@@ -45,7 +45,7 @@ tscord-template
 ├── package.json # config for npm
 ├── mikro-orm.config.ts # exports the config of Mikro-ORM for the CLI (/!\ DO NOT TOUCH /!\)
 ├── pm2.config.json # config for PM2
-├── tsconfig.json # config for the typescript transcompiler (/!\ DO NOT TOUCH /!\)
+├── tsconfig.json # config for the typescript transpiler (/!\ DO NOT TOUCH /!\)
 ├── .typesafe-i18n.json # config for the i18n plugin (/!\ DO NOT TOUCH /!\)
 ├── docker-compose.yml # docker-compose config file
 ├── .docker # dockerfiles
@@ -105,7 +105,7 @@ tscord-template
 :::tip
 Under the hood, *TSCord* uses **discordx** that is himself a superset of **discord.js**.
 
-We **HIGHLY** recommand to check their documentation here: **https://discordx.js.org/**
+We **HIGHLY** recommend to check their documentation here: **https://discordx.js.org/**.
 ::: 
 
 ### Decorators

@@ -28,12 +28,18 @@ If you've set a channel ID in the config, each error happening on your bot will 
 
 <RenderImage src={require('./img/error_log_discord_channel_example.png').default}/>
 
+<br /><br />
+
+:::info
+Errors will not be sent to discord in `dev` mode.
+:::
+
 ## Custom errors
 
 You can create custom errors classes with a `handle()` method that will be executed each time it is thrown!
 
 :::caution
-The class must extend `BaseError`
+The class must extend `BaseError`.
 :::
 
 *E.g:*
@@ -56,5 +62,5 @@ export class InvalidOptionName extends BaseError {
 ```
 
 :::tip
-If you want your error to *actually* kill the process, you should call the `BaseError` method: `kill()`
+If you want your error to *actually* kill the process, you should call the `BaseError` method: `kill()`.
 :::

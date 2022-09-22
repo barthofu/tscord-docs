@@ -12,7 +12,7 @@ Internationalization is the process to provide automated translations based on l
 TSCord uses the excellent **[typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)** package, that provides a fully typed translation system, with string templating and many more!
 
 :::tip
-Click **[here](https://github.com/ivanhofer/typesafe-i18n#table-of-contents)** to view its documentation and understand how it works
+Click **[here](https://github.com/ivanhofer/typesafe-i18n#table-of-contents)** to view its documentation and understand how it works.
 :::
 
 In fact, this library is a program that will watch your translation files. If it detects any change, it will re-generate a type file in consequence. This is how it achieves complete typesafety!
@@ -152,7 +152,7 @@ Quite recently, Discord has made available the possibility to submit multiple *n
 So for example, you can submit a slash command with a name of **hello** for english users and **bonjour** for french users (the english one should also be the fallback language for the one you haven't referenced).
 
 :::info
-[Official Discord documentation on localized components](https://discord.com/developers/docs/interactions/application-commands#localization)
+[Official Discord documentation on localized components](https://discord.com/developers/docs/interactions/application-commands#localization).
 :::
 
 this is the "raw" way of doing that with `discordx`:
@@ -173,7 +173,7 @@ this is the "raw" way of doing that with `discordx`:
 ```
 
 :::caution
-`@Slash` should be imported from '@decorators', as explained on [this page](/docs/discord/interactions)
+`@Slash` should be imported from '@decorators', as explained on [this page](/docs/discord/interactions).
 :::
 
 But to avoid having to put this text-heavy thing in the code, we recommand you to put these in the translation files.
@@ -202,7 +202,7 @@ Will search translations at `COMMANDS.HELLO.NAME` for `nameLocalizations` and `C
 <Tab label="name" value="name">
 
 :::warning
-Only for `@Slash`
+Only for `@Slash`.
 :::
 
 If no `localizationSource` is provided, the `name` property will be used as the localization source.
