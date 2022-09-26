@@ -16,26 +16,8 @@ import {translate} from '@docusaurus/Translate';
 import useIsBrowser from '@docusaurus/useIsBrowser';
 import DocSidebarItems from '@theme/DocSidebarItems';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { 
-  faDiscord 
-} from '@fortawesome/free-brands-svg-icons'
-import { 
-  faHourglassStart, 
-  faCube, 
-  faStar,
-  faCode,
-  faBook,
-  faPuzzlePiece
-} from '@fortawesome/free-solid-svg-icons'
 
-const iconsAssociations = {
-  'Discord': faDiscord,
-  'Get Started': faHourglassStart,
-  'Features': faStar,
-  'Devops': faCode,
-  'Plugins': faPuzzlePiece,
-  'Guides': faBook
-}
+import { iconsAssociations } from '../../../config/tabs'
 
 // If we navigate to a category and it becomes active, it should automatically
 // expand itself
