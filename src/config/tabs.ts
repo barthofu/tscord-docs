@@ -6,6 +6,7 @@ export const iconsAssociations = {
 	'Bot Template': faDiscord,
 	'Website': faLaptop,
 	'Dashboard': faChartSimple,
+    'CLI': faCode
 
     // 'Discord': faDiscord,
     // 'Get Started': faHourglassStart,
