@@ -114,6 +114,15 @@ const config = {
       }
       
     }),
+
+    themes: [
+      [
+        require.resolve('@easyops-cn/docusaurus-search-local'),
+        {
+          hashed: true,
+        }
+      ]
+    ]
 };
 
 module.exports = config
