@@ -86,11 +86,7 @@ const config = {
           },
         ],
       },
-
-      footer: {
-        copyright: "Made by CodeLab team with ❤️",
-      },
-
+      
       prism: {
 
         darkTheme: darkCodeTheme,

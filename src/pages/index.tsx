@@ -12,6 +12,7 @@ import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 // @ts-ignore
 import styles from './index.module.scss'
 import Heading from '../components/shared/Heading'
+import Footer from '../components/modules/home/Footer/Footer'
 
 export default function Home(): JSX.Element {
 
@@ -72,6 +73,8 @@ export default function Home(): JSX.Element {
 
 				
 			</main>
+			
+			<Footer />
 		
 		</Layout>
 	);
