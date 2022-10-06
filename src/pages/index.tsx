@@ -24,15 +24,15 @@ export default function Home(): JSX.Element {
 			description="Description will go into a meta tag in <head />"
 		>
 
-			<Header />
-			
-			<main className={styles.main}>
+			<BrowserOnly>
+				{() => <>
 				
-				<Highlights />
-
-				<BrowserOnly>
-					{() => <>
+					<Header />
 					
+					<main className={styles.main}>
+						
+						<Highlights />
+
 						<section>
 
 							<Heading>Key Features</Heading>
@@ -66,15 +66,13 @@ export default function Home(): JSX.Element {
 							</LandingSection>
 
 						</section>
-					
-					</>}
-				</BrowserOnly>
-				
 
-				
-			</main>
-			
-			<Footer />
+					</main>
+					
+					<Footer />
+
+				</>}
+			</BrowserOnly>
 		
 		</Layout>
 	);
