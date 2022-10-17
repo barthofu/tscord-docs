@@ -18,14 +18,14 @@ To know all the plugin-related commands of the CLI, **[go to this part of the do
 
 You can use any plugin components wherever you want just by using imports like this:
 ```ts
-import * as puginServices from '@services/{pluginName}'
+import { ThePluginService } from '@services/{pluginName}'
 ``` 
 where `{pluginName}` is the name of the plugin folder.
 
 ### Translations
 
-There's a high probabilty that a plugin you want to use do not support all the same languages than your bot, so you can't add and edit translation for each locales. <br/>
+There's a high probability that a plugin you want to use do not support all the same languages than your bot, so you can't add and edit translation for each locales. <br/>
 To do that:
-1. First run the bot in `dev` mode after installed the plugin so the trnaslation will be generated inside `/src/i18n/`.
+1. First run the bot in `dev` mode after installed the plugin so the translation will be generated inside `/src/i18n/`.
 2. Copy the file `/src/i18n/{locale}/{plugin name}/index.ts` as `/src/i18n/{locale}/{plugin name}/_custom.ts` and put your Translations inside. <br/>
 3. Run again the bot in `dev` mode and your custom translation should be loaded!

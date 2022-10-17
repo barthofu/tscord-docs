@@ -4,24 +4,27 @@ sidebar_position: 1
 
 # Installation
 
-> To install TSCord, please read these instructions very carefully, every word is important!
+:::info
+#### Requirements
 
-## Requirements
-
-- **[Node.js](https://nodejs.org/)** (*>= 17.6.0*)
+- **[Node.js](https://nodejs.org/)** (*>= 16.x.x*)
 - **[NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
+:::
 
-## Download the template
+1. Install the official CLI globally
 
-As for now, TSCord is a **template** kind of github repository.
+    ```
+    npm i -g tscord-cli
+    ```
 
-1. Go to https://github.com/barthofu/tscord
-2. Click on the green button `Use this template` on the github repository
-3. Clone the repo you've just created using command `git clone https://github.com/<you_username>/<your_repo>.git`
+2. Run the init command
 
-## Install the dependencies
+    ```
+    tscord init bot <name_of_your_bot>
+    ```
 
-Now, navigate to the cloned repo on your local machine and run the following command:
-```bash
-npm install
-```
+    It'll initialize a fresh TSCord-based discord bot, install its dependencies and setup git on it!
+
+:::tip
+Check the [CLI documentation](/docs/cli/usage) to know more on this and other commands!
+:::
