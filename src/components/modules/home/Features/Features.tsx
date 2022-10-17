@@ -1,7 +1,7 @@
 import React from 'react'
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { SimpleGrid } from '@chakra-ui/react'
+import { Box, SimpleGrid, Text } from '@chakra-ui/react'
 
 import useDocusaurusContext from '@docusaurus/useDocusaurusContext'
 import { homepageConfig } from '@site/src/config/homepage'
@@ -16,10 +16,10 @@ const FeatureItem: React.FC<Feature> = ({ title, icon, color, link }) => {
 	return (
 		<PopBox>
 			<a href={link ? `${useDocusaurusContext().siteConfig.baseUrl + link.replace(/^\//g, '')}` : '#'} className={`col-demo ${styles.feature}`}>
-				<div className={styles.feature__icon}>
+				<Box className={styles.feature__icon}>
 					<FontAwesomeIcon icon={icon} size='2x' color={color}/>
-				</div>
-				<p className={styles.feature__title}>{title}</p>
+				</Box>
+				<Text className={styles.feature__title}>{title}</Text>
 			</a>
 		</PopBox>
 	)

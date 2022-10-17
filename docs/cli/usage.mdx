@@ -18,8 +18,14 @@ The easiest way to get started with TSCord is by using the `init` command. It'll
 > For the moment, only the `bot` template can be init with the CLI.
 
 ```bash
-tscord init bot <name>
+tscord init bot <name> [version]
 ```
+
+If no **version** is precised, then the latest release of TSCord will be used (recommanded).
+
+**Options:**
+- `--no-deps` do not install dependencies
+- `--no-git` do not setup git
 
 ### Generate
 
@@ -37,7 +43,7 @@ tscord generate <type>
 ```
 directly.
 
-#### Extraction
+#### __Extraction__
 
 At some point you'll probably need to customize the generation CLI in different ways, for example:
 - edit the generated templates
@@ -54,7 +60,7 @@ and the source code will be copied in the root of your tscord project under the 
 
 This part of the CLI is using **[plop.js](https://plopjs.com/)** under the hood, so we highly recommend you to check their documentation so you can understand and customize efficiently the generators/templates for your unique needs!
 
-### Plugin
+### __Plugin__
 
 Plugins are hosted on the [barthofu/tscord-plugins](https://github.com/barthofu/tscord-plugins) github repository. 
 The CLI let you manage them in many ways!
@@ -62,7 +68,7 @@ The CLI let you manage them in many ways!
 > **note**
 > When we talk about **plugin name**, it is in fact their folder name which also acts as their unique identifier.
 
-#### Install
+#### __Install__
 
 Use the `plugin install` command to install a plugin locally.
 
@@ -70,7 +76,7 @@ Use the `plugin install` command to install a plugin locally.
 tscord plugin install <name>
 ```
 
-#### Uninstall
+#### __Uninstall__
 
 Use the `plugin uninstall` command to uninstall a plugin locally.
 
@@ -78,7 +84,7 @@ Use the `plugin uninstall` command to uninstall a plugin locally.
 tscord plugin uninstall <name>
 ```
 
-#### Update
+#### __Update__
 
 Updating a plugin is done with the `plugin update` command.
 
@@ -86,7 +92,7 @@ Updating a plugin is done with the `plugin update` command.
 tscord plugin update <name>
 ```
 
-#### Search
+#### __Search__
 
 You can search for plugins and have info on them with the `plugin search` command.
 
@@ -98,10 +104,22 @@ tscord plugin search <query>
 - `-l, --limit <number>` limit the number of results (default: "10")
 - `-s, --short` speed up search command by not showing extra information on plugins
 
-#### Info
+#### __Info__
 
 The `plugin info` command show you all the information about a plugin.
 
 ```bash
 tscord plugin info <name>
 ```
+
+#### __List__
+
+The `plugin list` command show you all the currently available plugins.
+
+```bash
+tscord plugin list
+```
+
+**Options:**
+- `-i, --installed` list only installed plugins
+- `-l, --link` put the link of each plugin right to its name

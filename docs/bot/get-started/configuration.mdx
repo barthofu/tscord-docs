@@ -32,11 +32,11 @@ export const generalConfig = {
     // do not touch that
     __templateVersion: 'x.x.x',
 
-	name: '', // the name of your bot
+	name: 'tscord', // the name of your bot
 	description: '', // the description of your bot
 	defaultLocale: 'en', // default language of the bot, must be a valid locale
 	simpleCommandsPrefix: '!', // default prefix for simple command messages (old way to do commands on discord)
-	owner: process.env['BOT_OWNER_ID'] || ''',
+	owner: process.env['BOT_OWNER_ID'] || '',
 	timezone: 'Europe/Paris', // default TimeZone to well format and localize dates (logs, stats, etc)
 	
     // useful links
@@ -82,12 +82,12 @@ For more info about the Mikro-ORM config (which holds, for instance, the databas
 ```ts title=src/config/database.ts²
 export const databaseConfig: DatabaseConfigType = {
     
-    path: "./database/", // path to the folder containing the migrations and SQLite database (if used)
+    path: './database/', // path to the folder containing the migrations and SQLite database (if used)
     
     // config for setting up an automated backup of the database (ONLY FOR SQLITE)
     backup: {
         enabled: false,
-        path: "" // path to the backups folder (should be in the database/ folder)
+        path: '' // path to the backups folder (should be in the database/ folder)
     }
 }
 ```
@@ -168,7 +168,7 @@ export const apiConfig: APIConfigType = {
 }
 ```
 
-### API
+### WebSocket
 
 ```ts title=src/config/websocket.ts
 export const websocketConfig: WebsocketConfigType = {
@@ -176,16 +176,3 @@ export const websocketConfig: WebsocketConfigType = {
     enabled: false, // should the websocket client be enabled or not (if you're not using the Dashboard, just disable it)
 }
 ```
-
-## IDE
-
-If your IDE displays you errors in certains files, it is because its TypeScript Server is not using the right version.
-
-### VSCode
-
-For VSCode, follow these steps:
-
-1. Go in a `.ts` file (any)
-2. Open the command palette (`ctrl`+`maj`+`p`)
-3. Search: ***Select Typescript*** and click on the first result
-4. Select `Use Workspace version`
