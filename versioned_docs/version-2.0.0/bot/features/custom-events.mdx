@@ -1,0 +1,50 @@
+---
+sidebar_position: 30
+---
+
+# Custom Events
+
+We've extended the behavior of `@On` and `@Once` decorators so they can work flawlessly with any kind of custom event.
+In fact, you can emit and handle your own events!
+
+In order to emit an event, use the `emit()` method on your `Client` instance:
+
+```ts
+import { singleton } from '@tsyringe'
+import { Client } from 'discordx'
+
+@singleton()
+export class YourService {
+
+    constructor(
+        private client: Client
+    ) {}
+
+    doSomething() {
+
+        // highlight-next-line
+        this.client.emit('myCustomEvent')
+    }
+}
+```
+
+And then handle it with a method decorated with the `@On` or `@Once` decorators:
+
+```ts
+import { Discord, On } from '@decorators'
+
+@Discord()
+export class YourEventHandler {
+
+    // highlight-next-line
+    @On('myCustomEvent')
+    handleMyCustomEvent() {
+
+        console.log('I handled my custom event!')
+    }
+}
+```
+
+:::caution
+Note that the class where you handle the event must be decorated with the `@Discord()` decorator.
+:::

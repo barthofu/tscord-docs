@@ -1,0 +1,177 @@
+---
+sidebar_position: 1
+---
+
+# ORM
+
+## What is en ORM?
+
+[Object-Relational Mapping](https://en.wikipedia.org/wiki/Object-relational_mapping) (ORM) is a technique that lets you query and manipulate data from a database using an object-oriented paradigm. When talking about ORM, most people are referring to a library that implements the Object-Relational Mapping technique, hence the phrase "an ORM".
+
+An ORM library is a completely ordinary library written in your language of choice that encapsulates the code needed to manipulate the data, so you don't use SQL anymore; you interact directly with an object in the same language you're using.$
+
+TSCord uses **[Mikro-ORM](https://mikro-orm.io/)**, an efficient battle-tested ORM library for Nodejs.
+
+## Entities
+
+One big interest of an ORM is that you **never** touch the database, even when creating new tables.
+
+Indeed, tables are represented by **entities**, which are plain Typescript classes using the *decorator* syntax to provide a simple yet efficient way to build them.
+
+Example of a simple entity:
+
+```ts title=src/entities/User.ts
+import { Entity, PrimaryKey, Property } from '@mikro-orm/core'
+import { CustomBaseEntity } from './BaseEntity'
+
+@Entity()
+export class User extends CustomBaseEntity {
+
+    @PrimaryKey({ autoincrement: false })
+    id: string
+
+    @Property()
+    name: string
+
+}
+```
+
+Some explanations:
+- Every entity must be placed in the `src/entities` directory and be exported in the `src/entities/index.ts` file.
+- Every entity class should be decorated with `@Entity()`.
+- Every entity must extends `CustomBaseEntity`, which will add *createdAt* and *updatedAt* properties.
+- Every attribute of the class marked with the `@Property()` decorator will be a property in the database table.
+- `@PrimaryKey()` decorator is used to define entity's unique primary key identifier.
+
+## Entity Repository
+
+Now that you have your entities created, you surely want to query, insert or even update data in the database!
+
+It is doned by using *entity repositories*. To access one, you need to inject the `Database` service, and then call the `get()` method.
+This method takes one argument: the class type of the entity you want to interact with.
+It will then return the repository of this entity, used to persist and query data.
+
+### Query
+
+You can query data using the `findOne()` and `find()` repository methods.
+
+```ts
+@Discord()
+@injectable()
+export default class PingCommand {
+
+    constructor(
+        private db: Database
+    )
+
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
+
+        const userRepo = this.db.get(User)
+
+        const user = await userRepo.findOne({ id: interaction.user.id }) // -> User
+        const users = await userRepo.findAll() // -> [User, User, User, ...]
+
+        interaction.reply(`${user.name}, pong!\nThere is a total of ${users.length} users in the database.`)
+    }
+} 
+```
+
+### Insert
+
+In order to insert (create) a new entity in the database, use the `insert()` repository method.
+
+```ts
+@Discord()
+@injectable()
+export default class PingCommand {
+
+    constructor(
+        private db: Database
+    )
+
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
+
+        const userRepo = this.db.get(User)
+
+        const user = new User()
+        user.name = 'John Doe'
+        user.id = interaction.user.id
+
+        await userRepo.persistAndFlush(user)
+    }
+}
+```
+
+### Update
+
+In order to update an entity in the database, use the `update()` repository method.
+
+```ts
+@Discord()
+@injectable()
+export default class PingCommand {
+
+    constructor(
+        private db: Database
+    )
+
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
+
+        const userRepo = this.db.get(User)
+
+        const user = await userRepo.findOne({ id: interaction.user.id })
+        user.name = 'John Doe'
+
+        await userRepo.persistAndFlush(user)
+    }
+}
+```
+
+### Delete
+
+In order to delete an entity in the database, use the `remove()` repository method.
+
+```ts
+@Discord()
+@injectable()
+export default class PingCommand {
+
+    constructor(
+        private db: Database
+    )
+
+    @Slash({ 
+        name: 'ping' 
+    })
+    async pingHandler(
+        interaction: CommandInteraction
+    ) {
+
+        const userRepo = this.db.get(User)
+
+        const user = await userRepo.findOne({ id: interaction.user.id })
+        await userRepo.removeAndFlush(user)
+    }
+}
+```
+
+<br/>
+
+:::tip important
+### For more informations on how to use Mikro-ORM, check their **[official documentation here](https://mikro-orm.io/docs/)**.
+:::
