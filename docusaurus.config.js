@@ -12,8 +12,8 @@ const config = {
 
   title: 'TSCord',
   tagline: 'A fully-featured discord bot template written in Typescript.',
-  url: 'https://barthofu.github.io',
-  baseUrl: '/tscord-docs/',
+  url: 'https://tscord.discbot.app',
+  baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
   favicon: 'img/favicon.ico',
