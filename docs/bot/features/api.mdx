@@ -11,12 +11,12 @@ TSCord is not only a Discord Bot, it has also an API in its core!<br />
 This API lets you interact with the bot instance and the DB from external services using REST requests.
 
 :::info
-It uses the `routing-controllers` package under the hood, check the **[official documentation here](https://github.com/typestack/routing-controllers#table-of-contents)** to learn how to customize it and add new endpoints.
+It uses the `tsed` package under the hood, check the **[official documentation here](https://tsed.io/getting-started/)** to learn how to customize it and add new endpoints.
 :::
 
 ## Initialization
 
-First, you need to put a unique **API_ADMIN_TOKEN** in the `.env` file (you can generate it [here](https://www.uuidgenerator.net/version1 )).
+First, you need to put a unique **API_ADMIN_TOKEN** in the `.env` file (you can generate one [here](https://www.uuidgenerator.net/version1)).
 You can also customize the port it is running on.
 
 ```env title=.env
@@ -36,7 +36,7 @@ export const generalConfig: GeneralConfigType = {
 
 ## Swagger
 
-The API includes an OpenAPI Swagger webpage, accessible at this endpoint:
+The API includes a Swagger (OpenAPI) webpage, accessible at this endpoint:
 ```
 /docs
 ```
