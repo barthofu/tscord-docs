@@ -4,40 +4,21 @@ sidebar_position: 30
 
 # Custom Events
 
-We've extended the behavior of `@On` and `@Once` decorators so they can work flawlessly with any kind of custom event.
-In fact, you can emit and handle your own events!
+The service in charge of the events is the `EventManager` service.
 
-In order to emit an event, use the `emit()` method on your `Client` instance:
+## Usage
 
-```ts
-import { singleton } from '@tsyringe'
-import { Client } from 'discordx'
+### Registering
 
-@singleton()
-export class YourService {
-
-    constructor(
-        private client: Client
-    ) {}
-
-    doSomething() {
-
-        // highlight-next-line
-        this.client.emit('myCustomEvent')
-    }
-}
-```
-
-And then handle it with a method decorated with the `@On` or `@Once` decorators:
+In order to register an event, use the `@OnCustom()` decorator like this:
 
 ```ts
-import { Discord, On } from '@decorators'
+import { OnCustom } from '@decorators'
 
-@Discord()
 export class YourEventHandler {
 
     // highlight-next-line
-    @On('myCustomEvent')
+    @OnCustom('myCustomEvent')
     handleMyCustomEvent() {
 
         console.log('I handled my custom event!')
@@ -45,6 +26,73 @@ export class YourEventHandler {
 }
 ```
 
-:::caution
-Note that the class where you handle the event must be decorated with the `@Discord()` decorator.
-:::
+It should be placed under the `src/events/custom/` folder.
+
+### Emitting
+
+In order to emit an event, use the `emit()` method on any injected instance of `EventManager`:
+
+```ts
+import { singleton } from '@tsyringe'
+import { EventManager } from '@services'
+
+@singleton()
+export class YourService {
+
+    constructor(
+        private eventManager: EventManager
+    ) {}
+
+    doSomething() {
+
+        // highlight-next-line
+        this.eventManager.emit('myCustomEvent')
+    }
+}
+```
+
+### Parameters
+
+Here is a simple example that demonstrates how to pass parameters to an event:
+
+```ts
+import { OnCustom } from '@decorators'
+
+export class YourEventHandler {
+
+    @OnCustom('myCustomEvent')
+    // highlight-next-line
+    handleMyCustomEvent(x: number, name: string) {
+
+        for (let i = 0; i < x; i++) {
+            console.log(`Hello ${name}!`)
+        }
+    }
+}
+```
+
+```ts
+import { singleton } from '@tsyringe'
+import { EventManager } from '@services'
+
+@singleton()
+export class YourService {
+
+    constructor(
+        private eventManager: EventManager
+    ) {}
+
+    doSomething() {
+
+        // highlight-next-line
+        this.eventManager.emit('myCustomEvent', 3, 'John Doe')
+    }
+}
+```
+
+## Built-in custom events
+
+| Event name              | Description                                                                             | Location                             |
+|-------------------------|-----------------------------------------------------------------------------------------|--------------------------------------|
+| `templateReady`         | Emitted once the application has fully started (including api/websocket servers, etc)   | `src/events/custom/templateReady.ts` |
+| `simpleCommandCreate`         | Emitted on simple interaction command   | `src/events/custom/templateReady.ts` |
