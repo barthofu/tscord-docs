@@ -40,6 +40,18 @@ Because the template is overriding the default behavior of some of these decorat
 </TabItem>
 </Tabs>
 
+## Responding to interactions
+
+TSCord is [defering](https://discordjs.guide/slash-commands/response-methods.html#deferred-responses) every command interaction (slashes and context menus) by default, so you should use `.followUp()` instead of `.reply()`.
+
+If you want to get rid of this automatic defering, you can delete the following lines in the `src/events/interactionCreate`:
+```ts 
+// defer the reply
+if (interaction instanceof CommandInteraction) await interaction.deferReply()
+```
+
+There's also the `replyToInteraction()` util function that abstract the response to either an interaction or a simple command message. 
+
 ## Built-in commands
 
 There are several built-in slash commands:
