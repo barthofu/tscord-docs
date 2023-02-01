@@ -1,0 +1,35 @@
+---
+sidebar_position: 10
+---
+
+# ♻️ Update & migrations
+
+## Global update guide 
+
+TSCord is a template-kind of project, so updating it can really be harsh. <br/>
+However, here is an update guide that you can follow for each migration:
+
+1. `cd` into your project directory
+2. `git remote add tscord https://github.com/barthofu/tscord`
+3. `git fetch origin`
+4. Now, get the tag of the release you want to update to (ex: `v2.1`)
+5. `git merge v2.1` (replace `v2.1` with the tag you want to)
+6. Resolve the conflicts (we highly recommand you to use the new merge editor of VSCode)
+7. Once you've resolved all the conflict, commit the changes
+8. `git remote rm tscord`
+
+## Migrations
+
+<details title="test">
+
+<summary><strong>v2.0 to v2.1</strong></summary>
+
+#### Custom events
+
+Events and Custom events, which used to both relay the `@On()` decorator of `discordx`, are now splitted.
+
+Indeed, we've implemented our own event manager so custom events are splitted from the discord ones, so they don't have to execute the whole guards pipeline.
+
+You'll have to replace all your custom events by the new `@OnCustom()` decorators, and emit them via the `emit()` metho of the `EventManager` service.
+
+</details>
