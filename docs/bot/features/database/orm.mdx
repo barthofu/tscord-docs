@@ -43,11 +43,33 @@ Some explanations:
 - Every attribute of the class marked with the `@Property()` decorator will be a property in the database table.
 - `@PrimaryKey()` decorator is used to define entity's unique primary key identifier.
 
+### Default values
+
+Mikro-ORM lets you define default values in two ways:
+
+#### 1. Typescript
+
+```ts
+    @Property()
+    name: string = 'John Doe'
+```
+
+This will ensure the default value when you instantiate the new object in your code (e.g: `new User()`), but will doesn't affect the SQL table (the column will remain nullable without default value)
+
+#### 2. SQL 
+
+```ts
+    @Property({ default: 'John Doe' })
+    name: string
+```
+
+The column in the SQL table will have the default value.
+ 
 ## Entity Repository
 
 Now that you have your entities created, you surely want to query, insert or even update data in the database!
 
-It is doned by using *entity repositories*. To access one, you need to inject the `Database` service, and then call the `get()` method.
+It is done by using *entity repositories*. To access one, you need to inject the `Database` service, and then call the `get()` method.
 This method takes one argument: the class type of the entity you want to interact with.
 It will then return the repository of this entity, used to persist and query data.
 
@@ -173,5 +195,5 @@ export default class PingCommand {
 <br/>
 
 :::tip important
-### For more informations on how to use Mikro-ORM, check their **[official documentation here](https://mikro-orm.io/docs/)**.
+### For more information on how to use Mikro-ORM, check their **[official documentation here](https://mikro-orm.io/docs/)**.
 :::
