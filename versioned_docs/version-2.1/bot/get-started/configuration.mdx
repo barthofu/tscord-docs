@@ -1,0 +1,177 @@
+---
+sidebar_position: 2
+---
+
+# Configuration
+
+## Env
+
+The first thing you have to do after installing the template is to setup the environments variables.
+TSCord supports `.env` files out-of-the-box.
+
+You'll find a `.env.example` file in the root directory with the following key/values pairs under the discord category:
+
+| Key              | Value                                                                                     | Required |
+|------------------|-------------------------------------------------------------------------------------------|----------|
+| **BOT_TOKEN**    | Your discord bot token (can be found [here](https://discord.com/developers/applications)) | ✔        |
+| **TEST_GUILD_ID**| The ID of the guild where you'll make tests with your bot                                 | ✔        |
+| **BOT_OWNER_ID** | The discord ID of bot owner                                                               | ✔        |
+
+Once you have filled up the required values, rename the file from `.env.example` to `.env`.
+
+## Configs
+
+Nearly all the configuration of the bot lives in the `src/config/` folder. 
+It is then splitted in separated files by concern.
+
+### General
+
+```ts title=src/config/general.ts
+export const generalConfig = {
+
+	name: 'tscord', // the name of your bot
+	description: '', // the description of your bot
+	defaultLocale: 'en', // default language of the bot, must be a valid locale
+	owner: process.env['BOT_OWNER_ID'] || '',
+	timezone: 'Europe/Paris', // default TimeZone to well format and localize dates (logs, stats, etc)
+
+	simpleCommandsPrefix: '!', // default prefix for simple command messages (old way to do commands on discord)
+    automaticDeferring: true, // enable or not the automatic deferring of the replies of the bot on the command interactions
+	
+    // useful links
+    links: {
+		invite: 'https://www.change_invite_link_here.com',
+		supportServer: 'https://discord.com/your_invitation_link',
+		gitRemoteRepo: 'https://github.com/barthofu/tscord',
+	},
+    
+    automaticUploadImagesToImgur: false, // enable or not the automatic assets upload
+
+	devs: [], // discord IDs of the devs that are working on the bot (you don't have to put the owner's id here)
+
+	eval: {
+		name: 'bot', // name to trigger the eval command
+		onlyOwner: false // restrict the eval command to the owner only (if not, all the devs can trigger it)
+	},
+
+    // define the bot activities (phrases under its name). Types can be: PLAYING, LISTENING, WATCHING, STREAMING
+    activities: [
+		{
+			text: 'discord.js v13',
+			type: 'PLAYING'
+		},
+		{
+			text: 'some knowledge',
+			type: 'STREAMING'
+		}
+	]
+}
+
+// global colors
+export const colorsConfig = {
+
+	primary: '#2F3136'
+}
+```
+
+### Database
+
+For more info about the Mikro-ORM config (which holds, for instance, the database connection information), head **[over here](/docs/bot/features/database/orm)**.
+
+```ts title=src/config/database.ts²
+export const databaseConfig: DatabaseConfigType = {
+    
+    path: './database/', // path to the folder containing the migrations and SQLite database (if used)
+    
+    // config for setting up an automated backup of the database (ONLY FOR SQLITE)
+    backup: {
+        enabled: false,
+        path: '' // path to the backups folder (should be in the database/ folder)
+    }
+}
+```
+
+### Logs
+
+```ts title=src/config/logs.ts
+export const logsConfig: LogsConfigType = {
+
+    debug: false, // set the discordx client debug logs
+		
+    // for each type of log, you can precise :
+    // - if the log should be consoled
+    // - if the log should be saved to the log files
+    // - if the log should be sent to a discord channel (providing its IP)
+    
+    interaction: {
+        file: true,
+        console: true,
+        channel: null,
+
+        // exclude some interactions types
+        exclude: [
+            'BUTTON_INTERACTION', 
+            'SELECT_MENU_INTERACTION'
+        ]
+    },
+
+    simpleCommand: {
+        file: true,
+        console: true,
+        channel: null
+    },
+
+    newUser: {
+        file: true,
+        console: true,
+        channel: null
+    },
+    
+    guild: {
+        file: true,
+        console: true,
+        channel: null
+    },
+    
+    error: {
+        file: true,
+        console: true,
+        channel: null
+    }
+}
+```
+
+### Stats
+
+```ts title=src/config/stats.ts
+export const statsConfig: StatsConfigType = {
+
+    interaction: {
+
+        // exclude interaction types from being recorded as stat
+        exclude: [
+            'BUTTON_INTERACTION',
+            'SELECT_MENU_INTERACTION'
+        ]
+    }
+}
+```
+
+### API
+
+```ts title=src/config/api.ts
+export const apiConfig: APIConfigType = {
+
+    enabled: false, // is the API server enabled or not
+    port: process.env['API_PORT'] ? parseInt(process.env['API_PORT']) : 4000, // the port on which the API server should be exposed
+}
+```
+
+### WebSocket
+
+```ts title=src/config/websocket.ts
+export const websocketConfig: WebsocketConfigType = {
+
+    enabled: false, // should the websocket client be enabled or not (if you're not using the Dashboard, just disable it)
+}
+```

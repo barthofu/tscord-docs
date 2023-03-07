@@ -1,0 +1,220 @@
+---
+sidebar_position: 20
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Internationalization (i18n)
+
+Internationalization is the process to provide automated translations based on locales (languages) extracted from any user input.
+
+TSCord uses the excellent **[typesafe-i18n](https://github.com/ivanhofer/typesafe-i18n)** package, that provides a fully typed translation system, with string templating and many more!
+
+:::tip
+Click **[here](https://github.com/ivanhofer/typesafe-i18n#table-of-contents)** to view its documentation and understand how it works.
+:::
+
+In fact, this library is a program that will watch your translation files. If it detects any change, it will re-generate a type file in consequence. This is how it achieves complete typesafety!
+
+:::warning
+Even if this system is good, it is known to be really slow and painful with a **really** large translation codebase. I however chose it because a simple discord bot, except for particular cases, will never reach this limit.
+:::
+
+This "program" can be launched as a standalone using `npm run dev:i18`, but anyway it is runned in parallel of the bot when using the `npm run dev` command!
+
+## Write translations
+
+You first need to choose a **base translation language**. It is from this language and file that `typesafe-i18n` will generate the type file.
+By default, TSCord have two translation languages : 
+- `en` (default)
+- `fr`
+
+Their translation file are respectively located in:
+- `src/i18n/en/index.ts`
+- `src/i18n/fr/index.ts`
+
+Your workflow should be as follow:
+1. Edit the **base translation language** file first (`en` by default) as you need
+2. Run the generator with either `npm run dev:i18n` or `npm run dev`
+3. Then, when the type file is updated, you can edit the other language translation files without errors
+4. If you still have errors displayed in your editor, restart the Typescript Server if your IDE
+
+*E.g:*
+<Tabs>
+<Tab label="en" value="en">
+
+```ts title=src/i18n/en/index.ts
+import type { BaseTranslation } from "../i18n-types"
+
+const en: BaseTranslation = {
+
+    GREET: 'Hello!'
+}
+
+export default en
+```
+</Tab>
+<Tab label="fr" value="fr">
+
+```ts title=src/i18n/fr/index.ts
+import type { Translation } from "../i18n-types"
+
+const fr: Translation = {
+
+    GREET: 'Bonjour !'
+}
+
+export default fr
+```
+</Tab>
+
+</Tabs>
+
+
+
+## Use translations
+
+### Basic usage
+
+To use translations, nothing more simple:
+
+```ts
+import { L } from '@i18n'
+
+const locale = 'en'
+
+console.log(L[locale]['GREET']()) // -> Hello!
+```
+
+### Locale extractor
+
+TSCord have a built-in function to extract a valid locale from any discord interaction:
+
+```ts
+import { Discord, Slash } from 'discordx'
+import { CommandInteraction } from 'discord.js'
+
+import { L, getLocaleFromInteraction } from '@i18n'
+
+@Discord()
+class Example {
+
+	@Slash({ name: 'greet' })
+	async greet(
+		interaction: CommandInteraction
+	) {
+		
+		const locale = getLocaleFromInteraction(interaction)
+
+		// will respond 'Hello!' to a user who have his discord client in english, 
+		// and 'Bonjour !' to a french one.
+		interaction.followUp(L[locale]['GREET']()) 
+	}
+}
+```
+
+### Automatic detection
+
+And that's not all!
+We've automated this process to free you from importing `L` and `getLocaleFromInteraction` in nearly every files.
+
+In fact, every interaction handler will automaticaly receive the locale and localized `L` function as an auto injected parameter as follow:
+
+```ts
+import { Discord, Slash } from 'discordx'
+import { CommandInteraction } from 'discord.js'
+
+import { L, getLocaleFromInteraction } from '@i18n'
+
+@Discord()
+class Example {
+
+	@Slash({ name: 'greet' })
+	async greet(
+		interaction: CommandInteraction,
+		client: Client, // -> if you want to use these auto injected data, you MUST put the client because discordx injects it anyway!
+						// if you don't, then the object passed as the InteractionData one will be in fact the client ☠️
+		// highlight-next-line
+		{ sanitizedLocale, localize }: InteractionData
+	) {
+		
+		console.log(sanitizedLocale) // -> en
+
+		interaction.followUp(localize['GREET']()) // -> 'Hello!'
+	}
+}
+```
+
+## Discord-side translation
+
+Quite recently, Discord has made available the possibility to submit multiple *name* and *description* depending on the language of the user's client.
+So for example, you can submit a slash command with a name of **hello** for english users and **bonjour** for french users (the english one should also be the fallback language for the one you haven't referenced).
+
+:::info
+[Official Discord documentation on localized components](https://discord.com/developers/docs/interactions/application-commands#localization).
+:::
+
+this is the "raw" way of doing that with `discordx`:
+
+```ts
+@Slash({
+	name: 'hello',
+	nameLocalizations: {
+		en: 'hello',
+		fr: 'bonjour'
+	},
+	description: {
+		en: 'Reply hello to the user',
+		fr: 'Répond bonjour à l\'utilisateur'
+	}
+})
+//...
+```
+
+:::caution
+`@Slash` should be imported from '@decorators', as explained on [this page](/docs/bot/discord/interactions).
+:::
+
+But to avoid having to put this text-heavy thing in the code, we recommand you to put these in the translation files.
+Then, you have 2 ways to reference it on the *Slash* (or *ContexMenus*, or *SlashOption*, etc...) decorators:
+
+<Tabs>
+<Tab label="localizationSource" value="localization-source">
+
+We added an optional `localizationSource` property to the component decorators.
+It will automaticaly seek a `NAME` and a `DESCRIPTION` property at the given path in the translation file.
+
+For example, this code:
+```ts
+
+@Slash({
+	name: 'hello',
+	localizationSource: 'COMMANDS.HELLO'
+})
+//...
+
+```
+
+Will search translations at `COMMANDS.HELLO.NAME` for `nameLocalizations` and `COMMANDS.HELLO.DESCRIPTION` for `descriptionLocalizations`.
+</Tab>
+
+<Tab label="name" value="name">
+
+:::warning
+Only for `@Slash`.
+:::
+
+If no `localizationSource` is provided, the `name` property will be used as the localization source.
+
+*E.g:*
+```ts
+@Slash({
+	name: 'hello'
+})
+```
+Will search translations at `COMMANDS.HELLO.NAME` and `COMMANDS.HELLO.DESCRIPTION`.
+
+</Tab>
+
+</Tabs>
