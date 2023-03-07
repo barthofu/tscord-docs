@@ -1,0 +1,48 @@
+---
+sidebar_position: 2
+---
+
+# Migrations
+
+The synchronization between Entities definition files and actual tables in the database is handled by the MikroORM's migrations system.
+
+Indeed, in order to apply on the database all the changes of your Entities classes, you must generate *migrations* JS files.
+They contain all the SQL statements needed to modify the current database state in order to match with the newly modified Entities classes, without losing any data.
+
+:::tip
+Migration files should be versioned as it permit to rollback to a certain state of your database.
+:::
+
+<hr/>
+
+To generate a migration file, simply do this command in the root of your project:
+
+```bash
+npm run migration:create
+```
+
+Then, to apply it to the database:
+
+```bash
+npm run migration:up
+```
+
+## Troubleshooting
+
+When using SQLite, if you encounter this error: 
+
+```
+SQLITE_ERROR: Cannot add a NOT NULL column with default value NULL
+```
+
+It means that you are trying to add a column without any default value to an already existing table. <br/>
+It is a behavior inherent to SQLite.
+
+In order to fix this, you should define a default value in the options of the `@Property()` decorator like this:
+
+```ts
+    @Property({ default: 'John Doe' })
+    name: string
+```
+
+as explained in more details [here](/docs/bot/features/database/orm#default-values) and [here](https://github.com/barthofu/tscord/issues/76).

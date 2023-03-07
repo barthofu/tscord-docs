@@ -1,0 +1,34 @@
+---
+sidebar_position: 4
+---
+
+# Activities
+
+You can simply setup activities your bot will loop through in the `configs/general.ts` file, like this:
+
+```ts title=configs/general.ts
+export const generalConfig = {
+    
+    //...
+
+    activities: [
+		{
+			text: 'discord.js v13',
+			type: 'PLAYING'
+		},
+		{
+			text: 'some knowledge',
+			type: 'STREAMING'
+		}
+	],
+
+    //...
+
+}
+```
+
+The allowed types are :
+- `PLAYING`
+- `LISTENING`
+- `WATCHING`
+- `STREAMING`
