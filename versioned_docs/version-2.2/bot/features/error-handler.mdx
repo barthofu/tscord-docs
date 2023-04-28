@@ -1,0 +1,66 @@
+---
+sidebar_position: 90
+---
+
+import RenderImage from '@site/src/components/shared/RenderImage'
+
+# Error Handler
+
+All unhandled errors in TSCord fallbacks to a default error handler, which can be configured to send those errors in the console, in a file or even in a discord channel!
+
+## Configuration
+
+```ts title=src/config/logs.ts
+//...
+    
+    error: {
+        file: true,
+        console: true,
+        channel: null // null or the ID of the channel to send 
+    }
+
+//...
+```
+
+## Discord
+
+If you've set a channel ID in the config, each error happening on your bot will be beautifully logged on Discord.
+
+<RenderImage src={require('./img/error_log_discord_channel_example.png').default}/>
+
+<br /><br />
+
+:::info
+Errors will not be sent to discord in `dev` mode.
+:::
+
+## Custom errors
+
+You can create custom errors classes with a `handle()` method that will be executed each time it is thrown!
+
+:::caution
+The class must extend `BaseError`.
+:::
+
+*E.g:*
+```ts
+import { BaseError } from "@utils/classes"
+import { snake } from "case"
+
+export class InvalidOptionName extends BaseError {
+
+    constructor(nameOption: string) {
+        super(`Name option must be all lowercase with no spaces. '${nameOption}' should be '${snake(nameOption)}'`)
+    }
+
+    handle() {
+
+        this.logger.console('error', this.message)
+        this.kill()
+    }
+}
+```
+
+:::tip
+If you want your error to *actually* kill the process, you should call the `BaseError` method: `kill()`.
+:::

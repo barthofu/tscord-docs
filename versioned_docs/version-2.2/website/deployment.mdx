@@ -1,0 +1,32 @@
+---
+sidebar_position: 30
+---
+
+# Deployment
+
+
+You have two options for the deployment:
+
+## Server
+
+Just run `npm run start` and you will be able to access the website using the port of the next.js server. 
+
+This is the simplest way to run the website, and it will enable [ISR](https://nextjs.org/docs/basic-features/data-fetching/incremental-static-regeneration) on the website, which permit to keep the advantage of a static website *while* refreshing the data and rebuilding automatically individual pages every X time (by default: 12 hours).
+
+But the main downside is the need of a next.js server instance to be running 24/7.
+
+## Static
+
+The other solution is to run `npm run export`, which will create a full static version of the website with no need of a next.js server instance to run in the background. This command exports the website in the `out` directory, and you'll next have the choice of deploying this directory anywhere you want (e.g: Github Pages, CDN, the `/var/www` folder of your private server, etc).
+
+In this solution, and as a contrast with the other, the main downside is that you'll have to re-build and re-deploy the website each time your data (list of commands, articles, etc) change. 
+
+You can still resolve this by automating all of this with a well configured CI/CD ecosystem (e.g: Github Actions, cron jobs on your server or on your bot, etc). 
+
+It will take you more effort for sure, but will result in the best of the two solutions!
+
+<br/>
+
+:::caution
+Keep in mind that you must have your bot running each time you build the website, otherwise it'll fail.
+:::
