@@ -32,6 +32,15 @@ const config = {
     locales: ['en'],
   },
 
+  scripts: [
+    {
+      src: '/js/script.js',
+      defer: true,
+      'data-api': '/api/event',
+      'data-domain': 'tscord.discbot.app'
+    }
+  ],
+
   plugins: [
     'docusaurus-plugin-sass',
   ],
