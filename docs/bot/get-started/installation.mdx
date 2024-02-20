@@ -7,8 +7,9 @@ sidebar_position: 1
 :::info
 #### Requirements
 
-- **[Node.js](https://nodejs.org/)** (*>= 16.x.x*)
-- **[NPM](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
+- **[node.js](https://nodejs.org/)** (*>= 18.x.x*)
+- **[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
+- **[node-gyp](https://github.com/nodejs/node-gyp?tab=readme-ov-file#installation)**
 :::
 
 1. Install the official CLI globally
@@ -27,4 +28,10 @@ sidebar_position: 1
 
 :::tip
 Check the [CLI documentation](/docs/cli/usage) to know more on this and other commands!
+:::
+
+:::caution
+If the `tscord init bot` command fails with an exit error code of 1, it is likely that the dependencies installation step has failed.
+
+In most cases, it is due to the lack of native build tools on your system required by `node-gyp`. You can fix this by following the steps mentioned in the [official node-gyp documentation](https://github.com/nodejs/node-gyp?tab=readme-ov-file#installation)
 :::

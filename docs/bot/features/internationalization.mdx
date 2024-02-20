@@ -17,7 +17,7 @@ Click **[here](https://github.com/ivanhofer/typesafe-i18n#table-of-contents)** t
 
 In fact, this library is a program that will watch your translation files. If it detects any change, it will re-generate a type file in consequence. This is how it achieves complete typesafety!
 
-:::warning
+:::caution
 Even if this system is good, it is known to be really slow and painful with a **really** large translation codebase. I however chose it because a simple discord bot, except for particular cases, will never reach this limit.
 :::
 
@@ -80,7 +80,7 @@ export default fr
 To use translations, nothing more simple:
 
 ```ts
-import { L } from '@i18n'
+import { L } from '@/i18n'
 
 const locale = 'en'
 
@@ -95,7 +95,7 @@ TSCord have a built-in function to extract a valid locale from any discord inter
 import { Discord, Slash } from 'discordx'
 import { CommandInteraction } from 'discord.js'
 
-import { L, getLocaleFromInteraction } from '@i18n'
+import { L, getLocaleFromInteraction } from '@/i18n'
 
 @Discord()
 class Example {
@@ -125,7 +125,7 @@ In fact, every interaction handler will automaticaly receive the locale and loca
 import { Discord, Slash } from 'discordx'
 import { CommandInteraction } from 'discord.js'
 
-import { L, getLocaleFromInteraction } from '@i18n'
+import { L, getLocaleFromInteraction } from '@/i18n'
 
 @Discord()
 class Example {
@@ -173,7 +173,7 @@ this is the "raw" way of doing that with `discordx`:
 ```
 
 :::caution
-`@Slash` should be imported from '@decorators', as explained on [this page](/docs/bot/discord/interactions).
+`@Slash` should be imported from '@/decorators', as explained on [this page](/docs/bot/discord/interactions).
 :::
 
 But to avoid having to put this text-heavy thing in the code, we recommand you to put these in the translation files.
@@ -201,7 +201,7 @@ Will search translations at `COMMANDS.HELLO.NAME` for `nameLocalizations` and `C
 
 <Tab label="name" value="name">
 
-:::warning
+:::caution
 Only for `@Slash`.
 :::
 

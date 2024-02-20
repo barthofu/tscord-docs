@@ -1,0 +1,14 @@
+---
+sidebar_position: 40
+---
+
+# Update
+
+In order to update a plugin, you should:
+1. Update the version in your `plugin.json`
+2. Adapt the `tscordRequiredVersion` semver if needed
+3. Run the `npm run lint:fix` command to format your code
+4. Copy/paste your plugin folder in the `plugins` folder of a fork of `barthofu/plugin-tscord` repo
+5. Commit and push to your forked repository on a branch named `update/<plugin-name>/<version>` (e.g: `update/starboard/1.2.0`)
+6. Open a PR following the given template between `barthofu/plugin-tscord`'s `main` branch and yours
+7. Wait till it's aproved by the Core Team

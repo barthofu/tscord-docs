@@ -120,7 +120,7 @@ Even if it is not difficult at all to understand and use them, creating ones is 
 
 Here are some code principles the template is using and that you should be aware of.
 
-### Dependency Injection and Singletons
+### Dependency Injection
 
 Dependency injection is basically providing the objects that an object needs (its dependencies) instead of having it construct them itself. It's a very useful technique for testing, since it allows dependencies to be mocked or stubbed out.
 
@@ -154,7 +154,6 @@ class Foo {
     ) {}
 
     public bar() {
-
         this.logger.log('Hello world!')
     }
 }
@@ -174,3 +173,31 @@ Explanations:
     - By using the `container.resolve()` function (so we can get the instance from anywhere in the code, not only from classes)
 
 You can see that both methods will output `175000` as `uniqueIdentifier`, showing that it is from the same class!
+
+#### Resolvers
+
+We also provide the `resolveDependency` and `resolveDependencies` functions from `@/utils/functions` to resolve dependencies from anywhere.
+
+:::danger
+It is, in some cases, better to use them than the automatic injection in the constructor.
+
+Indeed, we've had some issues with the constructor injection in some edge cases that we hardly understand at the moment. We are working on it, but in the meantime, you can use these functions to resolve your dependencies if you encounter weird problems linked to tsyringe. For example, the previous `Foo` class could be rewritten like this:
+
+```ts
+class Foo {
+
+    private logger: LoggerService
+
+    constructor() {
+        resolveDependency(LoggerService).then(logger => {
+            this.logger = logger
+        })
+    }
+
+    public bar() {
+        this.logger.log('Hello world!')
+    }
+}
+```
+
+:::

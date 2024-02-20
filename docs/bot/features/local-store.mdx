@@ -37,7 +37,7 @@ Now, you can use the `Store` service to get/set/update your data:
 
 ```ts title=src/services/Store.ts
 import { container } from 'tsyringe'
-import { Store } from '@services'
+import { Store } from '@/services'
 
 const store = container.resolve(Store)
 
@@ -58,7 +58,7 @@ The whole point of this store is that it is *reactive*. So you can subscribe to 
 
 ```ts title=src/services/Store.ts
 import { container } from 'tsyringe'
-import { Store } from '@services'
+import { Store } from '@/services'
 
 const store = container.resolve(Store)
 

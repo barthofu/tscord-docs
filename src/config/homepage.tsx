@@ -1,5 +1,5 @@
 import { faDocker } from "@fortawesome/free-brands-svg-icons"
-import { faArrowsToDot, faArrowsToEye, faBomb, faBoxesPacking, faBug, faCalendarDays, faChartLine, faCode, faCodeCompare, faDatabase, faFileArrowUp, faGlobe, faPaste, faPuzzlePiece, faShield, faShieldHalved, faSitemap } from "@fortawesome/free-solid-svg-icons"
+import { faPencil, faUserSecret, faArrowsToEye, faBomb, faBoxesPacking, faBug, faCalendarDays, faChartLine, faCode, faCodeCompare, faDatabase, faFileArrowUp, faGlobe, faPaste, faPuzzlePiece, faShield, faShieldHalved, faSitemap, faRotate } from "@fortawesome/free-solid-svg-icons"
 
 export const homepageConfig: HomepageConfigType = {
 
@@ -54,6 +54,12 @@ export const homepageConfig: HomepageConfigType = {
             icon: faArrowsToEye,
             color: '#ff7043',
             link: '/docs/bot/features/custom-events'
+        },
+        {
+            title: 'HMR',
+            icon: faRotate,
+            color: '#644b9f',
+            link: '/docs/bot/features/hmr'
         },
         {
             title: 'Error handling',
@@ -114,6 +120,18 @@ export const homepageConfig: HomepageConfigType = {
             icon: faBug,
             color: '#a7b1b5',
             link: '/docs/bot/devops/debug-with-vscode'
+        },
+        {
+            title: 'Linting & Formatting',
+            icon: faPencil,
+            color: '#4caf50',
+            link: '/docs/bot/devops/linting-and-formatting'
+        },
+        {
+            title: 'Typesafe env',
+            icon: faUserSecret,
+            color: '#f44336',
+            link: '/docs/bot/features/environment-variables'
         }
 
     ]

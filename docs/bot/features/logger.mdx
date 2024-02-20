@@ -31,7 +31,7 @@ The `log()` method of the `Logger` service is a little abstraction of the per lo
 **Usage**
 
 ```ts
-import { Logger } from '@services'
+import { Logger } from '@/services'
 const logger = container.resolve(Logger)
 
 logger.log('hello world!')
@@ -55,7 +55,7 @@ Log a message in the console using the `console()` method.
 **Usage**
 
 ```ts
-import { Logger } from '@services'
+import { Logger } from '@/services'
 const logger = container.resolve(Logger)
 
 logger.console('hello world!')
@@ -76,7 +76,7 @@ Log a message in a log file using the `file()` method.
 **Usage**
 
 ```ts
-import { Logger } from '@services'
+import { Logger } from '@/services'
 const logger = container.resolve(Logger)
 
 logger.file('Hello world!', 'error') // -> will log it in {logFilesPath}/error.log
@@ -99,7 +99,7 @@ Log a message in a Discord channel with embeds using the `discord()` method.
 **Usage**
 
 ```ts
-import { Logger } from '@services'
+import { Logger } from '@/services'
 const logger = container.resolve(Logger)
 
 logger.discord('716641518714355722', 'Hello world!', 'error')
@@ -107,3 +107,13 @@ logger.discord('716641518714355722', 'Hello world!', 'error')
 </Tab>
 
 </Tabs>
+
+## Auto-archiving
+
+TSCord will automatically archive the logs every day at midnight. The logs will be moved to a folder named `archive` in the logs directory, and will be named `logs-{date}.tar.gz` (`gzip` format) where `{date}` is the date of the logs that were archived. 
+
+You can disable this feature by setting `archive.enabled` to `false` in the `logs` configuration.
+
+### Retention policy
+
+The logs will be kept for a certain amount of days, and the rest will be deleted. You can configure this by setting `archive.retention` to the amount of days you want to keep the logs. By default, it's set to 30 days.

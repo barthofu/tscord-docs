@@ -13,7 +13,7 @@ The service in charge of the events is the `EventManager` service.
 In order to register an event, use the `@OnCustom()` decorator like this:
 
 ```ts
-import { OnCustom } from '@decorators'
+import { OnCustom } from '@/decorators'
 
 export class YourEventHandler {
 
@@ -34,7 +34,7 @@ In order to emit an event, use the `emit()` method on any injected instance of `
 
 ```ts
 import { singleton } from '@tsyringe'
-import { EventManager } from '@services'
+import { EventManager } from '@/services'
 
 @singleton()
 export class YourService {
@@ -56,7 +56,7 @@ export class YourService {
 Here is a simple example that demonstrates how to pass parameters to an event:
 
 ```ts
-import { OnCustom } from '@decorators'
+import { OnCustom } from '@/decorators'
 
 export class YourEventHandler {
 
@@ -73,7 +73,7 @@ export class YourEventHandler {
 
 ```ts
 import { singleton } from '@tsyringe'
-import { EventManager } from '@services'
+import { EventManager } from '@/services'
 
 @singleton()
 export class YourService {
@@ -94,5 +94,5 @@ export class YourService {
 
 | Event name              | Description                                                                             | Location                                  |
 |-------------------------|-----------------------------------------------------------------------------------------|-------------------------------------------|
-| `templateReady`         | Emitted once the application has fully started (including api/websocket servers, etc)   | `src/events/custom/templateReady.ts`      |
+| `templateReady`         | Emitted once the application has fully started (including api server, bot ready, etc)   | `src/events/custom/templateReady.ts`      |
 | `simpleCommandCreate`   | Emitted on simple interaction command                                                   | `src/events/custom/simpleCommadCreate.ts` |                                      |
