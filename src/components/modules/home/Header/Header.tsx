@@ -22,7 +22,7 @@ export default function Header() {
 			<div className={styles.buttons}>
 				<Link
 					className={`button button--secondary button--lg ${styles.button}`}
-					to="/docs/intro"
+					to="/docs/bot/get-started/installation"
 				>
 					Get Started →
 				</Link>

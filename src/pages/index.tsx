@@ -59,7 +59,7 @@ export default function Home(): JSX.Element {
 								title='Dashboard'
 								image='img/preview_dashboard.png'
 								alt='Dashboard preview'
-								link='/docs/website'
+								link='/docs/dashboard'
 								isImgFirst={true}
 							>
 								Manage, monitor or even visualize useful statistics of your TSCord-based bots with our dashboard

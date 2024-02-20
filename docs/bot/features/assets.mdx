@@ -61,9 +61,9 @@ To use images in your code, just retrieve it from the database:
 ```ts
 import { injectable } from 'tsyringe'
 
-import { Database } from '@services'
-import { Image } from '@entities'
-import { Discord } from '@decorators'
+import { Database } from '@/services'
+import { Image } from '@/entities'
+import { Discord } from '@/decorators'
 
 @Discord()
 @injectable()

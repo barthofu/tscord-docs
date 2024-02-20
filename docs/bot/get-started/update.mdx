@@ -2,12 +2,12 @@
 sidebar_position: 10
 ---
 
-# ♻️ Update & migrations
+# Update
 
-## Global update guide 
+## General update guide 
 
 TSCord is a template-kind of project, so updating it can really be harsh. <br/>
-However, here is an update guide that you can follow for each migration:
+However, here is an update guide that you can (quite) follow for each migration:
 
 1. `cd` into your project directory
 2. `git remote add tscord https://github.com/barthofu/tscord`
@@ -20,7 +20,9 @@ However, here is an update guide that you can follow for each migration:
 
 ## Migrations
 
-<details title="test">
+This section contains useful information about some version migration.
+
+<details title="v2.0 to v2.1">
 
 <summary><strong>v2.0 to v2.1</strong></summary>
 
@@ -37,3 +39,31 @@ You'll have to replace all your custom events by the new `@OnCustom()` decorator
 The `src/config` folder has been renamed to `src/configs`, and so for its path alias: `@config` -> `@configs`.
 
 </details>
+
+<details title="v2.2 to v2.3">
+
+<summary><strong>v2.2 to v2.3</strong></summary>
+
+:::caution
+This migration is quite heavy, and you should be careful when updating to this version. It is mainly due to the fact that we've auto-formatted the code on nearly all the files.
+
+You should check changes commit-per-commit on the [associated Github PR](https://github.com/barthofu/tscord/pull/155) to see what has changed and adapt your code accordingly. 
+
+Sorry for the inconvenience.
+:::
+
+#### Path aliases
+
+All the internal `tsconfig` path aliases have changed from `@<module_name>` to `@/<module_name>` (e.g: `@services` -> `@/services`). <br/>
+
+You should replace all the old path aliases by the new ones (quite fast to do with the global research/replace feature of your IDE).
+
+#### Environment variables
+
+We now use `envalid` to validate the environment variables upon startup. <br/>
+
+You shouldn't import them from `process.env` anymore. Use the `env` object from the `@/env` module instead.
+
+</details>
+
+
