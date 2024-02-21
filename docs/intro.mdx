@@ -4,28 +4,13 @@ sidebar_position: 10
 
 # Introduction
 
-<br />
-
-<table>
-<tr>
-<td align="center">
-
-<br/>   
-
-# 🌟 What is TSCord
-
-<hr />
-
 **TSCord** is a fully-featured **[discord bot](https://discord.com/developers/docs/intro#bots-and-apps)** *template* written in [Typescript](https://www.typescriptlang.org/), intended to provide a framework that's easy to use, extend and modify.
 
 It uses [`discordx`](https://github.com/discordx-ts/discordx) and [`discord.js v14`](https://github.com/discordjs/discord.js) under the hood to simplify the development of discord bots.
 
 This template was created to give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features. Developers can simply follow the [installation](https://tscord.discbot.app/docs/bot/get-started/installation) and [setup](https://tscord.discbot.app/docs/bot/get-started/configuration) instructions, and have a working bot with many boilerplate features already included!        
-</td>
-</tr>
-</table>
 
-## 📜 Features
+## Features
 
 Talking about features, here are some of the core features of the template:
 
@@ -33,7 +18,7 @@ Talking about features, here are some of the core features of the template:
     - Interactions (slash, context menu, button, modal, select menu, etc)
     - Simple message commands
     - Discord events listeners
-- **Guards** functions, acting like middleware on handlers with some built-ins:
+- **Guards** functions, acting like middlewares on handlers with some built-ins:
     - Rate limiter
     - Maintenance mode
     - Disabling command
@@ -55,10 +40,25 @@ Talking about features, here are some of the core features of the template:
 This template is also developer friendly and follow strict design patterns to ease its maintenance:
 - Written in **Typescript**
 - Built around the **Dependency Injection** and **Singleton** patterns
-- Use of battle-tested **libraries** under the hood (*discord.ts* and *discord.js*)
+- Use of battle-tested **libraries** under the hood (*discordx* and *discord.js*)
+- **Linting** and **formatting** thanks to a top-notch ESLint config
+- Typesafe and validated **environment variables**
 - Built-in **debugging** setup for VSCode
 - Support for running with the **[PM2](https://pm2.keymetrics.io/)** process manger
 - Support for running with **[Docker](https://www.docker.com/)**
 - CI/CD integration with **Github Actions**
 
 *and many more!*
+
+## Components
+
+But TSCord is not only a Discord bot template... It's a whole ecosystem!
+
+- **[Dashboard](/docs/dashboard)**: A ready-to-use fancy dashboard for your TSCord bot
+- **[Website](/docs/website)**: Customizable static homepage for your TSCord-based bot
+- **[Plugins](/docs/plugins)**: Fully extensible thanks to the plugin eco-system
+- **[CLI](/docs/cli)**: Really useful CLI meant to initialize a new TSCord project, generate files by type or even manage plugins
+
+## Roadmap
+
+We use Github milestones for our roadmaps. You can access it by clicking [here](https://github.com/barthofu/tscord-template/milestones?direction=asc&sort=title&state=open)

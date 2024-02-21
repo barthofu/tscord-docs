@@ -56,12 +56,6 @@ export const homepageConfig: HomepageConfigType = {
             link: '/docs/bot/features/custom-events'
         },
         {
-            title: 'HMR',
-            icon: faRotate,
-            color: '#644b9f',
-            link: '/docs/bot/features/hmr'
-        },
-        {
             title: 'Error handling',
             icon: faBomb,
             color: '#ef5350',
