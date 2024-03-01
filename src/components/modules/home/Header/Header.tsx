@@ -13,19 +13,29 @@ export default function Header() {
 
 	return (
 	  <header className={styles.heroBanner}>
-		<div className="container">
+		<div className={`container ${styles.centered}`}>
 		
 			<img className={styles.logo} src="img/tscord-template-icon.png" alt="Logo TSCord" />
 			<h1 className="hero__title">{siteConfig.title}</h1>
 			<p className="hero__subtitle">{siteConfig.tagline}</p>
+			
+			<div className={styles.hstack} style={{ marginTop: '1em' }}>
+				<div className={styles.codeBlock}>
+					<pre>
+						<code>
+							<span className={styles.command}>npx tscord init bot my-bot</span>
+						</code>
+					</pre>
+				</div>
 
-			<div className={styles.buttons}>
-				<Link
-					className={`button button--secondary button--lg ${styles.button}`}
-					to="/docs/bot/get-started/installation"
-				>
-					Get Started →
-				</Link>
+				<div className={styles.buttons}>
+					<Link
+						className={`button button--primary button--lg ${styles.button}`}
+						to="/docs/bot/get-started/installation"
+					>
+						Get Started →
+					</Link>
+				</div>
 			</div>
 		</div>
 	  </header>

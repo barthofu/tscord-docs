@@ -33,10 +33,10 @@ It should be placed under the `src/events/custom/` folder.
 In order to emit an event, use the `emit()` method on any injected instance of `EventManager`:
 
 ```ts
-import { singleton } from '@tsyringe'
+import { Service } from '@/decorators'
 import { EventManager } from '@/services'
 
-@singleton()
+@Service()
 export class YourService {
 
     constructor(
@@ -72,10 +72,10 @@ export class YourEventHandler {
 ```
 
 ```ts
-import { singleton } from '@tsyringe'
+import { Service } from '@/decorators'
 import { EventManager } from '@/services'
 
-@singleton()
+@Service()
 export class YourService {
 
     constructor(
