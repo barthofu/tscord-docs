@@ -10,6 +10,29 @@
 	overflow: hidden;
 }
 
+
+.hstack {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.centered {
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+	align-items: center;
+}
+
+.codeBlock {
+	max-width: fit-content;
+	margin: 0 1em;
+
+	pre {
+		margin: 0;
+	}
+}
+
 @media screen and (max-width: 996px) {
 
 	.heroBanner {
@@ -19,14 +42,7 @@
 
 .buttons {
 
-	margin-top: 3em;
-
 	display: flex;
 	align-items: center;
 	justify-content: center;
-
-	// .button {
-	// 	background-color: #eae8ff !important;
-	// 	border: 0px
-	// }
 }

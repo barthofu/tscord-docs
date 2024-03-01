@@ -128,14 +128,14 @@ Dependencies can be injected into objects by many means (such as constructor inj
 
 In addition of that, you can use the [Singleton Pattern](https://sourcemaking.com/design_patterns/singleton) that will instantiate a class only once. Furthermore, this is this single instance that will be passed everywhere in your codebase using Dependency Injection.
 
-We are using the **[tsyringe](https://github.com/microsoft/tsyringe)** package to achieve this in this template.
+We are using the **[tsyringe](https://github.com/microsoft/tsyringe)** package internally to achieve this in this template.
 
 Here is a concrete example of how you would use DI:
 
 ```ts
-import { singleton, injectable } from 'tsyringe'
+import { Service, Injectable } from '@/decorators'
 
-@singleton()
+@Service()
 class LoggerService {
 
     private uniqueIdentifier = Math.random() * 1000000 // each time this class is instantiated, it will have a merely unique 'uniqueIdentifier' attribute
@@ -146,7 +146,7 @@ class LoggerService {
     }
 }
 
-@injectable()
+@Injectable()
 class Foo {
 
     constructor(
@@ -167,12 +167,22 @@ logger.log('Hello World!') // -> [175000] Hello World!
 ```
 
 Explanations:
-- Thanks to the `@singleton` decorator, the `LoggerService` class will be instantiated *once* when your program starts
+- Thanks to the `@Service` decorator, the `LoggerService` class will be instantiated *once* when your program starts
 - Then, this instance can be injected with 2 methods:
-    - By passing a parameter to the constructor with the class type of the desired instance (only possible when using the `@injectable` decorator on the class)
+    - By passing a parameter to the constructor with the class type of the desired instance (only possible when using the `@Injectable` decorator on the class)
     - By using the `container.resolve()` function (so we can get the instance from anywhere in the code, not only from classes)
 
 You can see that both methods will output `175000` as `uniqueIdentifier`, showing that it is from the same class!
+
+:::caution
+If you have an error like this:
+```
+Cannot inject the dependency "myDependency" at position #0 of "Service" constructor. Reason:
+    TypeInfo not known for "Object"
+```
+
+You should use the [delay method](https://github.com/microsoft/tsyringe?tab=readme-ov-file#circular-dependencies) even if you are not in the case of a circular dependency.
+:::
 
 #### Resolvers
 
