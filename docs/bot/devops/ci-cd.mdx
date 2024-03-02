@@ -26,6 +26,34 @@ From there, add the following secrets (don't worry, after you've set a secret no
 | `PASSWORD`     | Password of the host user to connect as       |
 | `PROJECT_PATH` | The absolute path to your project on the host |
 
+If you want to use SSH private key with passphrase instead of a regular password, you'll need to add 2 more secrets:
+
+| Name           | Description                                   |
+|----------------|-----------------------------------------------|
+| `KEY`          | Raw content of SSH private key                |
+| `PASSPHRASE`   | SSH key passphrase                            |
+
+And then edit the following file like that:
+
+```yml title=.github/workflows/deploy.yml
+        with:
+            host: ${{ secrets.IP }}
+            username: ${{ secrets.USERNAME }}
+            // remove-next-line
+            password: ${{ secrets.PASSWORD }}
+            // remove-next-line
+            # key: ${{ secrets.KEY }}
+            // remove-next-line
+            # passphrase: ${{ secrets.PASSPHRASE }}
+            // add-next-line
+            # password: ${{ secrets.PASSWORD }}
+            // add-next-line
+            key: ${{ secrets.KEY }}
+            // add-next-line
+            passphrase: ${{ secrets.PASSPHRASE }}
+            port: ${{ secrets.PORT }}
+```
+
 ### Workflow config file
 
 Then, you can customize the behavior in the `.github/workflows/deploy.yml` config file.
