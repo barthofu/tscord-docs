@@ -1,0 +1,98 @@
+---
+sidebar_position: 30
+---
+
+# Custom Events
+
+The service in charge of the events is the `EventManager` service.
+
+## Usage
+
+### Registering
+
+In order to register an event, use the `@OnCustom()` decorator like this:
+
+```ts
+import { OnCustom } from '@/decorators'
+
+export class YourEventHandler {
+
+    // highlight-next-line
+    @OnCustom('myCustomEvent')
+    handleMyCustomEvent() {
+
+        console.log('I handled my custom event!')
+    }
+}
+```
+
+It should be placed under the `src/events/custom/` folder.
+
+### Emitting
+
+In order to emit an event, use the `emit()` method on any injected instance of `EventManager`:
+
+```ts
+import { Service } from '@/decorators'
+import { EventManager } from '@/services'
+
+@Service()
+export class YourService {
+
+    constructor(
+        private eventManager: EventManager
+    ) {}
+
+    doSomething() {
+
+        // highlight-next-line
+        this.eventManager.emit('myCustomEvent')
+    }
+}
+```
+
+### Parameters
+
+Here is a simple example that demonstrates how to pass parameters to an event:
+
+```ts
+import { OnCustom } from '@/decorators'
+
+export class YourEventHandler {
+
+    @OnCustom('myCustomEvent')
+    // highlight-next-line
+    handleMyCustomEvent(x: number, name: string) {
+
+        for (let i = 0; i < x; i++) {
+            console.log(`Hello ${name}!`)
+        }
+    }
+}
+```
+
+```ts
+import { Service } from '@/decorators'
+import { EventManager } from '@/services'
+
+@Service()
+export class YourService {
+
+    constructor(
+        private eventManager: EventManager
+    ) {}
+
+    doSomething() {
+
+        // highlight-next-line
+        this.eventManager.emit('myCustomEvent', 3, 'John Doe')
+    }
+}
+```
+
+## Built-in custom events
+
+| Event name              | Description                                                                             | Location                                  |
+|-------------------------|-----------------------------------------------------------------------------------------|-------------------------------------------|
+| `templateReady`         | Emitted once the application has fully started (including api server, bot ready, etc)   | `src/events/custom/templateReady.ts`      |
+| `simpleCommandCreate`   | Emitted on simple interaction command                                                   | `src/events/custom/simpleCommadCreate.ts` |                                      |

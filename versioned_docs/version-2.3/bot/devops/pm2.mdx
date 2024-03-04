@@ -1,0 +1,32 @@
+---
+sidebar_position: 30
+---
+
+# PM2
+
+**[PM2](https://pm2.keymetrics.io/)** is an advanced process manager for node.js applications.<br />
+It'll help you to manage and keep the bot online 24/7
+
+## Installation
+
+You can install globally using `npm`:
+```
+npm install -g pm2
+```
+
+## Usage
+
+Then, you can just start your bot using this command:
+```
+pm2 start pm2.config.json
+```
+
+:::tip
+To customize the name of the process, just edit the `name` property in the `pm2.config.json` config file.
+:::
+
+Useful commands:
+- `pm2 ls` -> list all the currently running process along with their `id`, run this command the first time and copy the id corresponding to your bot for furthermore commands
+- `pm2 stop <id>` -> stop the process
+- `pm2 restart <id>` -> restart the process
+- `pm2 log <id>` -> attach the log of the process to the current terminal window (you can `ctrl`+`c` at anytime, it won't stop your bot)

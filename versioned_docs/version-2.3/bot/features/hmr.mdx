@@ -1,0 +1,60 @@
+---
+sidebar_position: 110
+---
+
+# HMR
+
+Hot Module Replacement (HMR) is a feature to inject updated modules into the active runtime. This allows you to see changes in your application without a full reload.
+
+HMR is currenlty only working with **events** and **commands** files due to some limitations. We are planning to add as much support as possible in the future.
+
+:::caution
+It is important to not confuse HMR, which is an advanced technique that allows you to keep the state of your application while updating the code and feels almost instant, with the simple "automatic restart on save" happening on other files than **events** and **commands** ones. 
+:::
+
+## Keep instance state
+
+If you want to keep the instance state of a singleton after an HMR auto-reload, you must set the `keepInstanceAfterHmr` parameter of the `@Service` decorator to `true`.
+
+E.g:
+```ts
+import { Service } from '@/decorators'
+
+@Service({
+    keepInstanceAfterHmr: true
+})
+class MyService {
+
+    // ...
+}
+```
+
+### Init method
+
+If your service needs to be *initialized* after being constructed, you should re-run this initialization method by calling it in the `// re-init services` section of the `reload()` method in the `src/main.ts` file.
+
+E.g:
+
+```ts
+async reload(client: Client) {
+
+    // ...
+
+    // re-init services
+
+	const pluginManager = await resolveDependency(PluginsManager)
+	await pluginManager.loadPlugins()
+
+	const db = await resolveDependency(Database)
+	await db.initialize()
+
+//highlight-start
+    const myService = await resolveDependency(MyService)
+    await myService.init()
+//highlight-end
+
+	logger.log(chalk.whiteBright('Hot reloaded\n'))
+}
+```
+
+It is often the case with services that needs to init things asynchronously as the constructor of a class cannot be async.

@@ -1,0 +1,83 @@
+---
+sidebar_position: 1
+---
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+# Interactions
+
+TSCord uses decorators from `discordx` to handle interactions.
+
+:::caution 
+Because the template is overriding the default behavior of some of these decorators, you should **always** import them from `@/decorators` rather than `discordx`! 
+:::
+
+#### Here is a relevant list of them, linked to the corresponding discordx documentation:
+
+<Tabs>
+<TabItem value="commands" label="Commands">
+
+### [@Slash](https://discordx.js.org/docs/decorators/commands/slash)
+
+#### [@SlashChoice](https://discordx.js.org/docs/decorators/commands/slash-choice)
+#### [@SlashGroup](https://discordx.js.org/docs/decorators/commands/slash-group)
+#### [@SlashOption](https://discordx.js.org/docs/decorators/commands/slash-option)
+
+### [@SimpleCommand](https://discordx.js.org/docs/decorators/commands/simple-command)
+
+#### [@SimpleCommandOption](https://discordx.js.org/docs/decorators/commands/simple-command-option)
+
+</TabItem>
+
+<TabItem value="gui" label="GUI Interactions">
+
+### [@ButtonComponent](https://discordx.js.org/docs/decorators/gui/button-component)
+### [@ContextMenu](https://discordx.js.org/docs/decorators/gui/context-menu)
+### [@ModalComponent](https://discordx.js.org/docs/decorators/gui/modal-component)
+### [@SelectMenuComponent](https://discordx.js.org/docs/decorators/gui/select-menu-component)
+
+</TabItem>
+</Tabs>
+
+## Responding to interactions
+
+TSCord is [deferring](https://discordjs.guide/slash-commands/response-methods.html#deferred-responses) every command interaction (slashes and context menus) by default, so you should use `.followUp()` instead of `.reply()`.
+
+If you want to get rid of this automatic deferring, you can disable it in the general config file (`src/config/general`).
+
+There's also the `replyToInteraction()` util function that abstract the response to either an interaction or a simple command message. 
+
+## Built-in commands
+
+There are several built-in slash commands:
+
+<Tabs>
+<TabItem value="general" label="General">
+
+| Command name | Description                                                                     |
+|--------------|---------------------------------------------------------------------------------|
+| `help`         | Get all the commands and their descriptions, grouped by categories            |
+| `info`         | Show general information about the bot                                       |
+| `invite`       | Give the link to invite the bot on any server                                 |
+| `ping`         | Pong!                                                                         |
+| `stats`        | Display stats like total amount of users using the bot, number of guilds, etc |
+
+</TabItem>
+
+<TabItem value="admin" label="Admin">
+
+| Command name | Description                                 |
+|--------------|---------------------------------------------|
+| `prefix`       | Change the prefix of the bot on the guild |
+
+</TabItem>
+
+<TabItem value="owner" label="Owner">
+
+| Command name | Description                                                                  |
+|--------------|------------------------------------------------------------------------------|
+| `maintenance`  | Toggle on/off maintenance mode                                             |
+
+</TabItem>
+</Tabs>

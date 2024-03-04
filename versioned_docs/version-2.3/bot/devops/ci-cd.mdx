@@ -1,0 +1,82 @@
+---
+sidebar_position: 50
+---
+
+# CI/CD
+
+TSCord bundles itself with a complete setup for **[Github Actions](https://github.com/features/actions)**!
+
+Github Actions lets you automate your workflow for building, testing and deploying your application.
+
+More concretely, the provided config will permit you to deploy your bot to a SSH accessible remote machine (like a VPS) on precise events, like the creation of a tag on Github, a push to the `main` branch, on demand, etc...
+
+## Configuration
+
+### Secrets
+
+First, you need to setup some *secrets* in the settings of your github repo (**Settings** > **Secrets** > **Actions**).
+
+From there, add the following secrets (don't worry, after you've set a secret nobody will be able to read it):
+
+| Name           | Description                                   |
+|----------------|-----------------------------------------------|
+| `IP`           | The IP of the machine that will host your bot |
+| `PORT`         | Put `22` (SSH port)                           |
+| `USER`         | Name of the host user to connect as           |
+| `PASSWORD`     | Password of the host user to connect as       |
+| `PROJECT_PATH` | The absolute path to your project on the host |
+
+If you want to use SSH private key with passphrase instead of a regular password, you'll need to add 2 more secrets:
+
+| Name           | Description                                   |
+|----------------|-----------------------------------------------|
+| `KEY`          | Raw content of SSH private key                |
+| `PASSPHRASE`   | SSH key passphrase                            |
+
+And then edit the following file like that:
+
+```yml title=.github/workflows/deploy.yml
+        with:
+            host: ${{ secrets.IP }}
+            username: ${{ secrets.USERNAME }}
+            // remove-next-line
+            password: ${{ secrets.PASSWORD }}
+            // remove-next-line
+            # key: ${{ secrets.KEY }}
+            // remove-next-line
+            # passphrase: ${{ secrets.PASSPHRASE }}
+            // add-next-line
+            # password: ${{ secrets.PASSWORD }}
+            // add-next-line
+            key: ${{ secrets.KEY }}
+            // add-next-line
+            passphrase: ${{ secrets.PASSPHRASE }}
+            port: ${{ secrets.PORT }}
+```
+
+### Workflow config file
+
+Then, you can customize the behavior in the `.github/workflows/deploy.yml` config file.
+
+:::tip
+To know how to use Github Actions config files, **[check the doc here](https://docs.github.com/en/actions/using-workflows/workflow-syntax-for-github-actions)**.
+:::
+
+By default, the deploy workflow is only triggerable on-demand (**Actions** > **Deploy (SSH)** > **Run workflow**).<br />
+We recommand you to either add a trigger on release tag creation or on pushes on your `main` branch, depending on your global git workflow.
+
+Also, by default, the deploy action will use **Docker**, but you can easily replace it with **PM2**:
+
+```yml title=.github/workflows/deploy.yml
+        script: |
+            cd $PROJECT_PATH
+            git pull https://github.com/barthofu/tscord-template.git main
+            // remove-next-line
+            docker-compose up -d --build
+            // add-next-line
+            pm2 restart pm2.config.json
+```
+
+:::info
+Each line under the `script` property is a command that'll be run on your host machine. You can customize it as you want!
+:::

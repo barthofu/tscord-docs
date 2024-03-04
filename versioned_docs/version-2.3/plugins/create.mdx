@@ -1,0 +1,106 @@
+---
+sidebar_position: 20
+---
+
+# Create a plugin
+
+## Introduction
+
+Plugin management has been designed so that if you know how to use the template, you basically know how to make plugins.
+
+In fact, the structure of a plugin is virtually the same as that of the template, so you can easily take a Command, Service or Event and simply copy/paste it into a plugin to make it work.
+
+Take a look at the various plugins already in use on our repository: https://github.com/barthofu/tscord-plugins
+
+## Structure
+
+The structure of a plugin is very similar to that of the `src` folder of the template:
+```bash
+plugin-name/
+├── <module>/
+│   └── my-file.ts
+├── plugin.json 
+├── README.md # recommanded
+└── main.ts # optional
+```
+
+The `<module>` folder can be any of the following:
+- `commands`
+- `events`
+- `services`
+- `i18n`
+- `api`
+- `guards`
+- `utils`
+
+e.g: A simple example of a plugin that only adds a command, a service and some translations in `en` and `fr`:
+```
+my-plugin/
+├── commands/
+│   └── my-command.ts
+├── services/
+│   └── my-service.ts
+├── i18n/
+│   ├── en.ts
+│   └── fr.ts
+└── plugin.json
+```
+
+### `plugin.json`
+
+Every plugin require a `plugin.json` file at the root of the plugin folder. This file contains the following information:
+```json
+{
+    "name": "my-plugin",
+    "description": "A simple plugin",
+    "version": "1.0.0",
+    "author": "John Doe",
+    "tscordRequiredVersion": ">=1.0.0"
+}
+```
+
+- `name`: Name of your plugin, can only contain letters, numbers and dashes. It should be in lowercase.
+- `description` (*optional*): A short description of your plugin.
+- `version`: The version of your plugin.
+- `author` (*optional*): The author of the plugin.
+- `tscordRequiredVersion`: A [SemVer](https://semver.org/) to validate the use of your plugin on certain template versions.
+
+:::caution
+If this file is missing, the plugin won't be loaded into the template.
+:::
+
+### `main.ts`
+
+You can use a file named `main.ts` at the root of your project if you need to perform tasks at bot startup.
+
+Note that when you run this file, all the rest of your plugin is already loaded, such as your Services, Commands, Events, etc...
+
+:::tip
+A plugin can't edit the `client.ts` config of the project, but you can use this file (`main.ts`) to verify if all the needed **intents** and/or **partials** are enabled.
+:::
+
+## Development workflow
+
+To develop a plugin, you can simply create a new folder in the `plugins` folder of a fresh TSCord project and start coding. 
+
+## Differences
+
+There are still a few differences to bear in mind when creating a plugin vs developing a bot in the template, notably when it comes to managing translations.
+
+### Translations
+
+For translations, you only need to create a file such as `en.ts` and put the desired translation in it, instead of a folder as you do usually in the template. 
+
+By default, English is mandatory, but it's highly recommended to add as many languages as possible to your plugins if you intend to share them.
+
+But don't worry, if a translation is missing, the end user can rewrite the translations without having to modify the plugin.
+
+### Inner imports
+
+When you import files within your plugin, you should use the relative path, not the global module path. For example, if you want to import a service in a command, you should use the following syntax:
+
+```ts
+import { MyService } from '../services'
+```
+
+It ensures that your plugin will work even if the folder name changes.
