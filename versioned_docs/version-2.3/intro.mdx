@@ -1,0 +1,64 @@
+---
+sidebar_position: 10
+---
+
+# Introduction
+
+<br />
+
+<table>
+<tr>
+<td align="center">
+
+<br/>   
+
+# 🌟 What is TSCord
+
+<hr />
+
+**TSCord** is a fully-featured **[discord bot](https://discord.com/developers/docs/intro#bots-and-apps)** *template* written in [Typescript](https://www.typescriptlang.org/), intended to provide a framework that's easy to use, extend and modify.
+
+It uses [`discordx`](https://github.com/discordx-ts/discordx) and [`discord.js v14`](https://github.com/discordjs/discord.js) under the hood to simplify the development of discord bots.
+
+This template was created to give developers a starting point for new Discord bots, so that much of the initial setup can be avoided and developers can instead focus on meaningful bot features. Developers can simply follow the [installation](https://tscord.discbot.app/docs/bot/get-started/installation) and [setup](https://tscord.discbot.app/docs/bot/get-started/configuration) instructions, and have a working bot with many boilerplate features already included!        
+</td>
+</tr>
+</table>
+
+## 📜 Features
+
+Talking about features, here are some of the core features of the template:
+
+- Advanced **handlers** for:
+    - Interactions (slash, context menu, button, modal, select menu, etc)
+    - Simple message commands
+    - Discord events listeners
+- **Guards** functions, acting like middleware on handlers with some built-ins:
+    - Rate limiter
+    - Maintenance mode
+    - Disabling command
+    - Guild only command (no DMs)
+    - NSFW only command
+    - Message's content match using regex
+- Internal **API** to interact with the bot from external services, with built-in useful endpoints
+- Multiple **databases** support out-of-the-box using [Mikro-ORM](https://mikro-orm.io/)
+- **Migrations** system to keep a safe database
+- **Custom events** handlers
+- Advanced **error handler**
+- Fully-typed **localization** (i18n)
+- Local **store** to manage global state through the app
+- Advanced **logger** with log files and discord channels support
+- **Scheduler** for cron jobs
+- Built-in rich **statistics** system
+- Automatic **static assets upload** to [imgur](https://imgur.com/)
+
+This template is also developer friendly and follow strict design patterns to ease its maintenance:
+- Written in **Typescript**
+- Built around the **Dependency Injection** and **Singleton** patterns
+- Use of battle-tested **libraries** under the hood (*discord.ts* and *discord.js*)
+- Built-in **debugging** setup for VSCode
+- Support for running with the **[PM2](https://pm2.keymetrics.io/)** process manger
+- Support for running with **[Docker](https://www.docker.com/)**
+- CI/CD integration with **Github Actions**
+
+*and many more!*

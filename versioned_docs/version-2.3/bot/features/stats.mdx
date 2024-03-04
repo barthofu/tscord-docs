@@ -1,0 +1,66 @@
+---
+sidebar_position: 75
+---
+
+# Stats
+
+TSCord comes with a fully-featured statistic service!
+It will track and collect stats on many things automatically.
+
+## Daily stats
+
+A scheduled job will run each day at 11:59pm in order to register the stats of the day. 
+
+These stats includes total amounts for:
+- **Commands**
+- **Guilds**
+- **Users**
+- **Active users** (users that have interacted at least once with the bot)
+
+## Interactions
+
+Each interaction is also registered with some optional additional information.
+
+### Configuration
+
+To configure which interactions should **not** be registered, you can edit the `src/config/stats.ts` config file:
+
+```ts title=src/config/stats.ts
+export const statsConfig: StatsConfigType = {
+
+    interaction: {
+
+        exclude: [
+            'BUTTON_INTERACTION',
+            'SELECT_MENU_INTERACTION'
+        ]
+    }
+}
+```
+
+The different types are:
+
+- `CHAT_INPUT_COMMAND_INTERACTION` 
+- `SIMPLE_COMMAND_MESSAGE` 
+- `CONTEXT_MENU_INTERACTION`
+- `BUTTON_INTERACTION`
+- `SELECT_MENU_INTERACTION` 
+- `MODAL_SUBMIT_INTERACTION`
+
+### Registration
+
+When an interaction is registered, here are the info that are saved in the database:
+- `type` -> the type of the interaction (correspond to the types written above)
+- `action` -> which "command" has been submitted (e.g: `help` if a user invoke the `/help` slash command)
+- `additional_data` -> additional info including the `user`, `channel` and `guild` ids related to the invocation of the command
+
+## Events
+
+Some events are also registered such as:
+
+| Type            | Action     | Description                                                               |
+|-----------------|------------|---------------------------------------------------------------------------|
+| `NEW_USER`      | *user id*  | A new user has interacted with the bot for the first time                 |
+| `NEW_GUILD`     | *guild id* | The bot has been added to a new guild                                     |
+| `DELETE_GUILD`  | *guild id* | The bot has been removed from a guild                                     |
+| `RECOVER_GUILD` | *guild id* | The bot has been re-added to a guild it has been removed from in the past |

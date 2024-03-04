@@ -1,0 +1,31 @@
+---
+sidebar_position: 70
+---
+
+# Linting and Formatting
+
+Linting and formatting are important parts of the development process. They help to ensure that your code is consistent and free of errors.
+
+We use `eslint` for both linting and formatting. `eslint` is a popular tool for linting and formatting JavaScript code. It is highly configurable and can be used to enforce a wide range of coding standards.
+
+Our opiniated configuration is a tweaked version of [antfu/eslint-config](https://github.com/antfu/eslint-config), but you can modify it anytime in the `eslint.config.js` file.
+
+## Usage
+
+### CLI
+
+You can run the linting from the command line using the following command:
+
+```bash
+npm run lint
+```
+
+If you want to also format your code by fixing the styling whenever it is possible, you can run the following command:
+
+```bash
+npm run lint:fix
+```
+
+### Editor
+
+We ship with a `.vscode` folder that contains a `settings.json` file. This file will automatically recommand you the `eslint` extension and format your code on save.

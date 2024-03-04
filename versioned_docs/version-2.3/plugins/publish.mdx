@@ -1,0 +1,19 @@
+---
+sidebar_position: 30
+---
+
+# Publish
+
+We're using a public Github repository as the central registry for plugins.
+
+In order to add your plugin to the registry, you need to:
+1. Fork the [tscord-plugins](https://github.com/barthofu/tscord-plugins) repository.
+2. Create a new branch named `feat/plugin-name` where `plugin-name` is the name of your plugin.
+4. Go back to the tscord project where you develop your plugin.
+5. Run the `npm run lint:fix` command
+6. Copy/paste your plugin folder in the `plugins` folder of the `barthofu/plugin-tscord` repo
+7. Commit and push to your forked repository
+8. Open a PR following the given template between `barthofu/plugin-tscord`'s `main` branch and yours
+9. Wait till it's aproved by the Core Team and then it'll automatically be merged and made available to the public through the CLI
+
+Tada 🎉

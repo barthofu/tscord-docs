@@ -1,0 +1,73 @@
+---
+sidebar_position: 50
+---
+
+# Local Store
+
+TSCord uses [rxeta](https://github.com/barthofu/rxeta) to store reactive data at runtime.
+This library was written especially for this project.
+
+It uses [rxjs](https://rxjs.dev/) and a dead simple `get`/`set`/`update` interface to manipulate data in a reactive and efficient way.
+
+## Initialization
+First, you need to define the **shape** (interface/type) of the data you'll store in the `Store` service:
+
+```ts title=src/services/Store.ts
+interface State {
+    count: number
+}
+```
+
+Then, define the **initial state** of your data when the bot starts:
+    
+```ts title=src/services/Store.ts
+interface State {
+    count: number
+}
+
+//highlight-start
+const initialState: State = {
+    count: 0
+}
+//highlight-end
+```
+
+## Usage
+Now, you can use the `Store` service to get/set/update your data:
+
+```ts title=src/services/Store.ts
+import { container } from 'tsyringe'
+import { Store } from '@/services'
+
+const store = container.resolve(Store)
+
+//set
+this.store.set('count', 1)
+
+//update
+this.store.update('count', (count) => count + 1)
+
+//get
+const count = this.store.get('count')
+console.log(count) // -> 2
+```
+
+### Subscriptions
+
+The whole point of this store is that it is *reactive*. So you can subscribe to changes in the data (weither the full store or a particular state) and react to them.
+
+```ts title=src/services/Store.ts
+import { container } from 'tsyringe'
+import { Store } from '@/services'
+
+const store = container.resolve(Store)
+
+store.subscribe((state) => {
+    console.log('The whole state has changed!')
+    console.log('New state:', state)
+})
+
+store.select('count').subscribe((count) => {
+    console.log('New count:', count)
+})
+```

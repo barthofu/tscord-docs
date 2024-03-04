@@ -1,0 +1,119 @@
+---
+sidebar_position: 80
+---
+
+# Logger
+
+import Tabs from '@theme/Tabs'
+import TabItem from '@theme/TabItem'
+
+TSCord includes a logger service that lets you efficiently log things towards different "locations" in a formatted way.
+
+## Configuration
+
+To configure what should be logged and where, [head over to this part of the documentation](/docs/bot/get-started/configuration#logs).
+
+## Usage
+
+### Log
+
+The `log()` method of the `Logger` service is a little abstraction of the per location methods (listed just below) that will act as a shortcut to log to the console, and optionally to a file or a discord channel depending on params. 
+
+**Params**
+
+| Name         | Type           | Default | Description                                                              |
+|--------------|----------------|---------|--------------------------------------------------------------------------|
+| `message`    | string         |         | The message to log                                                       |
+| `level`      | string         | *info*  | info \| warn \| error                                                    |
+| `saveToFile` | boolean        | *true*  | If the message should be saved in a file                                 |
+| `channelId`  | string \| null | *null*  | Discord channel to log to (if `null`, nothing will be logged to Discord) |
+
+**Usage**
+
+```ts
+import { Logger } from '@/services'
+const logger = container.resolve(Logger)
+
+logger.log('hello world!')
+```
+
+### Per location methods
+
+<Tabs>
+<Tab label="Console" value="console">
+
+Log a message in the console using the `console()` method.
+
+**Params**
+
+| Name             | Type    | Default | Description                                              |
+|------------------|---------|---------|----------------------------------------------------------|
+| `message`        | string  |         | The message to log                                       |
+| `level`          | string  | *info*  | info \| warn \| error                                    |
+| `ignoreTemplate` | boolean | *false* | If it should ignore the default timestamp-based template |
+
+**Usage**
+
+```ts
+import { Logger } from '@/services'
+const logger = container.resolve(Logger)
+
+logger.console('hello world!')
+```
+</Tab>
+
+<Tab label="File" value="file">
+
+Log a message in a log file using the `file()` method.
+
+**Params**
+
+| Name             | Type    | Default | Description                                              |
+|------------------|---------|---------|----------------------------------------------------------|
+| `message`        | string  |         | The message to log                                       |
+| `level`          | string  | *info*  | info \| warn \| error                                    |
+
+**Usage**
+
+```ts
+import { Logger } from '@/services'
+const logger = container.resolve(Logger)
+
+logger.file('Hello world!', 'error') // -> will log it in {logFilesPath}/error.log
+```
+
+</Tab>
+
+<Tab label="Discord" value="discord">
+
+Log a message in a Discord channel with embeds using the `discord()` method.
+
+**Params**
+
+| Name             | Type                                                                                                 | Default | Description                                                                            |
+|------------------|------------------------------------------------------------------------------------------------------|---------|----------------------------------------------------------------------------------------|
+| `channelId`      | string                                                                                               |         | The ID of the discord channel to log to                                                |
+| `message`        | string \| [MessageOptions](https://discord.js.org/#/docs/discord.js/main/typedef/BaseMessageOptions) |         | Either the message to log or directly an embed or anything that can be sent to discord |
+| `level`          | string                                                                                               | *info*  | info \| warn \| error                                                                  |
+
+**Usage**
+
+```ts
+import { Logger } from '@/services'
+const logger = container.resolve(Logger)
+
+logger.discord('716641518714355722', 'Hello world!', 'error')
+```
+</Tab>
+
+</Tabs>
+
+## Auto-archiving
+
+TSCord will automatically archive the logs every day at midnight. The logs will be moved to a folder named `archive` in the logs directory, and will be named `logs-{date}.tar.gz` (`gzip` format) where `{date}` is the date of the logs that were archived. 
+
+You can disable this feature by setting `archive.enabled` to `false` in the `logs` configuration.
+
+### Retention policy
+
+The logs will be kept for a certain amount of days, and the rest will be deleted. You can configure this by setting `archive.retention` to the amount of days you want to keep the logs. By default, it's set to 30 days.

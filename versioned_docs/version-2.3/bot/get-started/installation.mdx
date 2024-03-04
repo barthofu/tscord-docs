@@ -1,0 +1,45 @@
+---
+sidebar_position: 1
+---
+
+# Installation
+
+:::caution
+As of now, this template is not yet compatible with [sharding](https://discordjs.guide/sharding/#when-to-shard), so we don't advertise to use it for large bots.
+
+Researchs are made to find how to implement this, as well as clustering, in a proper manner. This implementation should be happening in the future next big version `3.0`.
+
+Sorry for the inconvenience.
+:::
+
+## Requirements
+
+- **[node.js](https://nodejs.org/)** (*>= 18.x.x*)
+- **[npm](https://docs.npmjs.com/downloading-and-installing-node-js-and-npm)**
+- **[node-gyp](https://github.com/nodejs/node-gyp?tab=readme-ov-file#installation)**
+
+## Steps
+
+1. Install the official CLI globally
+
+    ```
+    npm i -g tscord
+    ```
+
+2. Run the init command
+
+    ```
+    tscord init bot <name_of_your_bot>
+    ```
+
+    It'll initialize a fresh TSCord-based discord bot, install its dependencies and setup git on it!
+
+:::tip
+Check the [CLI documentation](/docs/cli/usage) to know more on this and other commands!
+:::
+
+:::caution
+If the `tscord init bot` command fails with an exit error code of 1, it is likely that the dependencies installation step has failed.
+
+In most cases, it is due to the lack of native build tools on your system required by `node-gyp`. You can fix this by following the steps mentioned in the [official node-gyp documentation](https://github.com/nodejs/node-gyp?tab=readme-ov-file#installation)
+:::
