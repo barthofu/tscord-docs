@@ -2,7 +2,7 @@
 sidebar_position: 10
 ---
 
-# Update
+# Update and migrations
 
 ## General update guide 
 
@@ -63,6 +63,13 @@ You should replace all the old path aliases by the new ones (quite fast to do wi
 We now use `envalid` to validate the environment variables upon startup. <br/>
 
 You shouldn't import them from `process.env` anymore. Use the `env` object from the `@/env` module instead.
+
+#### Service and Injectable
+
+Three [tsyringe](https://github.com/microsoft/tsyringe) decorators have been replaced by custom wrappers importable from `@/decorators`:
+- `@singleton()` -> `@Service()`
+- `@injectable()` -> `@Injectable()`
+- `@autoInjectable()` -> `@AutoInjectable()`
 
 </details>
 
