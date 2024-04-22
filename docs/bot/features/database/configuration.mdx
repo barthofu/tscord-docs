@@ -32,7 +32,7 @@ You can find here the configuration for the different types of databases:
 
 ```ts title=mikroOrmConfig
 {
-    type: 'better-sqlite', // or 'sqlite'
+    type: 'sqlite',
     dbName: `${databaseConfig.path}db.sqlite`, // path to the db .sqlite file
 }
 ```
@@ -112,3 +112,34 @@ DATABASE_PASSWORD="tscord123"
 
 #...
 ```
+
+## Better-sqlite3
+
+The `better-sqlite3` is a way better package than the default `sqlite3` package. It's faster and more reliable. You can have more informations on this [there](https://github.com/WiseLibs/better-sqlite3/issues/262).
+
+Its main downside though is that it relies on native bindings via `node-gyp`, which means that you need to have a correct native build tools installed on your system to be able to install it. Before the `v2.4`, it was the default database of TSCord but we decided to switch to the default `sqlite3` package to avoid any frequent installation issues to newcomers.
+
+But if you know how to install node-gyp well and you want to use `better-sqlite3`, you can install it by following these steps:
+1. `npm i @mikro-orm/better-sqlite`
+2. `npm i -D @types/better-sqlite3`
+3. Add the following lines in `src/utils/types/database.d.ts`:
+```ts
+type DatabaseConfigs = {
+	sqlite: {
+		driver: import('@mikro-orm/sqlite').SqliteDriver
+		entityManager: import('@mikro-orm/sqlite').SqlEntityManager
+	}
+//highlight-start
+    'better-sqlite': {
+		driver: import('@mikro-orm/better-sqlite').BetterSqliteDriver
+		entityManager: import('@mikro-orm/better-sqlite').SqlEntityManager
+	}
+//highlight-end
+	postgresql: {
+		driver: import('@mikro-orm/postgresql').PostgreSqlDriver
+		entityManager: import('@mikro-orm/postgresql').SqlEntityManager
+	}
+    // ...
+}
+```
+4. Change the database `type` to `better-sqlite` in the `src/configs/database.ts` file.
