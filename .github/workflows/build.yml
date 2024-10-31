@@ -34,7 +34,7 @@ jobs:
         run: tar -czf "${GITHUB_SHA}".tar.gz build
 
       - name: Store artifact for distribution
-        uses: actions/upload-artifact@v2
+        uses: actions/upload-artifact@v4
         with:
           name: app-build
           path: ${{ github.sha }}.tar.gz
