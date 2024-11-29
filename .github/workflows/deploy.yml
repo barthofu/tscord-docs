@@ -35,7 +35,7 @@ jobs:
           rm: true
         
       - name: Untar the artifact
-        uses: appleboy/ssh-action@master
+        uses: appleboy/ssh-action@v1.0.3
         env:
           APP_PATH: ${{ secrets.PATH }}
           COMMIT_SHA: ${{ github.sha }}
