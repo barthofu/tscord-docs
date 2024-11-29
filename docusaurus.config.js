@@ -12,7 +12,7 @@ const config = {
 
   title: 'TSCord',
   tagline: 'A fully-featured discord bot template written in Typescript.',
-  url: 'https://tscord.discbot.app',
+  url: 'https://tscord.bartho.dev',
   baseUrl: '/',
   onBrokenLinks: 'throw',
   onBrokenMarkdownLinks: 'warn',
@@ -37,7 +37,7 @@ const config = {
       src: '/js/script.js',
       defer: true,
       'data-api': '/api/event',
-      'data-domain': 'tscord.discbot.app'
+      'data-domain': 'tscord.bartho.dev'
     }
   ],
 

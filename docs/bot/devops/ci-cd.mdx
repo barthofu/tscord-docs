@@ -4,7 +4,7 @@ sidebar_position: 50
 
 # CI/CD
 
-TSCord bundles itself with a complete setup for **[Github Actions](https://github.com/features/actions)**!
+TSCord bundles a complete setup for **[Github Actions](https://github.com/features/actions)**!
 
 Github Actions lets you automate your workflow for building, testing and deploying your application.
 
@@ -14,28 +14,28 @@ More concretely, the provided config will permit you to deploy your bot to a SSH
 
 ### Secrets
 
-First, you need to setup some *secrets* in the settings of your github repo (**Settings** > **Secrets** > **Actions**).
+First, you need to setup some _secrets_ in the settings of your github repo (**Settings** > **Secrets** > **Actions**).
 
 From there, add the following secrets (don't worry, after you've set a secret nobody will be able to read it):
 
-| Name           | Description                                   |
-|----------------|-----------------------------------------------|
-| `IP`           | The IP of the machine that will host your bot |
-| `PORT`         | Put `22` (SSH port)                           |
-| `USER`         | Name of the host user to connect as           |
-| `PASSWORD`     | Password of the host user to connect as       |
-| `PROJECT_PATH` | The absolute path to your project on the host |
+| Name           | Description                                           |
+| -------------- | ----------------------------------------------------- |
+| `IP`           | The IP of the machine that will host your bot         |
+| `PORT`         | Put `22` (SSH port)                                   |
+| `USER`         | Name of the host user to connect as                   |
+| `PASSWORD`     | Password of the host user to connect as               |
+| `PROJECT_PATH` | The absolute path to your project on the host machine |
 
 If you want to use SSH private key with passphrase instead of a regular password, you'll need to add 2 more secrets:
 
-| Name           | Description                                   |
-|----------------|-----------------------------------------------|
-| `KEY`          | Raw content of SSH private key                |
-| `PASSPHRASE`   | SSH key passphrase                            |
+| Name         | Description                    |
+| ------------ | ------------------------------ |
+| `KEY`        | Raw content of SSH private key |
+| `PASSPHRASE` | SSH key passphrase             |
 
 And then edit the following file like that:
 
-```yml title=.github/workflows/deploy.yml
+```yaml title=.github/workflows/deploy.yml
         with:
             host: ${{ secrets.IP }}
             username: ${{ secrets.USERNAME }}
@@ -54,6 +54,65 @@ And then edit the following file like that:
             port: ${{ secrets.PORT }}
 ```
 
+:::danger
+Passphrase support of `ssh-deploy` action is quite janky for the moment. You shouldn't use it.
+:::
+
+### Permissions
+
+For the deploy script to be able to pull your repositories inside your actions, you must set the `Settings` > `Actions` > `General` > `Actions permissions` to this: **Allow all actions and reusable workflows**
+
+### Private repository
+
+If your repository is private, you'll need to do a few more extra steps.
+
+You can either use a **Personal Access Token** or an **SSH key**.
+
+#### Personal Access Token
+
+1. Create a new token on Github: **Settings** > **Developer settings** > **Personal access tokens** > **Generate new token**
+2. Give it the `repo` scope
+3. Copy the final token
+4. Create 2 new secrets in your repository: **Settings** > **Secrets** > **Actions** > **New repository secret**
+   - `GITHUB_TOKEN` with the token as value
+   - `GITHUB_USERNAME` with your Github username as value
+5. Edit the `.github/workflows/deploy.yml` file like that:
+   ```yaml
+   script: |
+     cd $PROJECT_PATH
+     // remove-next-line
+     git pull https://github.com/<your_username>/<your_repo>.git main
+     // add-next-line
+     git pull https://${ secrets.GITHUB_USERNAME }:${ secrets.GITHUB_TOKEN }@github.com/<your_username>/<your_repo>.git main
+     //...
+   ```
+
+#### SSH key
+
+1. Generate a new SSH key on your final host: `ssh-keygen -t rsa -b 4096 -C "your@email.com"`
+   :::caution
+   Don't use ed25519 keys, as they are not supported by the `ssh-deploy` action.
+   :::
+2. Add the public key to your Github account: [GitHub > Your Profile > Settings > SSH and GPG Keys](https://github.com/settings/keys). This will allow the action to pull your repository from your host.
+3. Add the private key to your repository secrets: `Settings` > `Secrets and variables` > `Actions` > `Secrets`. Name it `SSH_PRIVATE_KEY` and paste the content of the private key.
+4. Fill the `known_hosts` file with the host key fingerprints of Github. You can find them [here](https://docs.github.com/en/github/authenticating-to-github/githubs-ssh-key-fingerprints).
+5. Add the key to your host's SSH agent:
+   ```bash
+   eval "$(ssh-agent -s)"
+   ssh-add ~/.ssh/id_rsa
+   ```
+6. Clone your repository: `git clone git@github.com:<your_github_user>/<your_github_project>.git`
+7. Edit the `.github/workflows/deploy.yml` file like that:
+   ```yaml
+   script: |
+   script: |
+     cd $PROJECT_PATH
+     // remove-next-line
+     git pull https://github.com/<your_username>/<your_repo>.git main
+     // add-next-line
+     git pull git@github.com/<your_username>/<your_repo>.git main
+   ```
+
 ### Workflow config file
 
 Then, you can customize the behavior in the `.github/workflows/deploy.yml` config file.
@@ -68,13 +127,13 @@ We recommand you to either add a trigger on release tag creation or on pushes on
 Also, by default, the deploy action will use **Docker**, but you can easily replace it with **PM2**:
 
 ```yml title=.github/workflows/deploy.yml
-        script: |
-            cd $PROJECT_PATH
-            git pull https://github.com/barthofu/tscord-template.git main
-            // remove-next-line
-            docker-compose up -d --build
-            // add-next-line
-            pm2 restart pm2.config.json
+script: |
+  cd $PROJECT_PATH
+  git pull https://github.com/<your_username>/<your_repo>.git main
+  // remove-next-line
+  docker-compose up -d --build
+  // add-next-line
+  pm2 restart pm2.config.json
 ```
 
 :::info
