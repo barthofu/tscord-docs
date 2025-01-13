@@ -1,0 +1,21 @@
+---
+sidebar_position: 100
+---
+
+# Environment variables
+
+We are using [dotenv](https://github.com/motdotla/dotenv) for loading `.env` into process environment variables and [envalid](https://github.com/af/envalid) to validate and access environment variables.
+
+The variables are defined in the `src/utils/types/environment.ts` file. 
+
+This file also contains a function executed upon startup to dynamically validate the environment variables. Indeed, many of them are required only if the associated service is enabled (e.g: the API or the automatic image upload).
+
+## Usage
+
+To access an environment variable, you can use the `env` object from `@/env`:
+
+```ts
+import { env } from '@/env'
+
+console.log(env.BOT_OWNER_ID)
+```

@@ -1,0 +1,35 @@
+---
+sidebar_position: 70
+---
+
+# Scheduler
+
+The scheduler lets you schedule functions to be run each X time or at each X time.
+It uses [cron jobs](https://ostechnix.com/a-beginners-guide-to-cron-jobs/) under the hood, so you should be familiar with its syntax.
+
+To setup a scheduled function, just add the `@Schedule()` decorator on top of it (only works with methods within a class!).
+
+*E.g:*
+
+```ts
+import { Schedule } from '@/decorators'
+
+export class YourService {
+
+    @Schedule('*/5 * * * *') // will run this function every 5 minutes
+    foo() {
+        console.log('foo')
+    }
+
+    @Schedule('0 0 * * *') // will run this function every dat at 00:00
+    bar() {
+        console.log('bar')
+    }
+    
+}
+```
+<br />
+
+:::tip
+Here is a generator website for cron schedule expressions: https://crontab.guru/.
+:::
